@@ -1,7 +1,7 @@
 require("mason").setup()
 
 require("mason-lspconfig").setup({
-    ensure_installed = { "lua_ls", "jdtls", "bashls", "clangd", "ts_ls", "jsonls", "pylsp", "html", },
+    ensure_installed = { "lua_ls", "jdtls", "bashls", "clangd", "ts_ls", "jsonls", "pylsp", "html", "dockerls", },
     automatic_installation = true,
 })
 
@@ -31,6 +31,18 @@ require("mason-lspconfig").setup_handlers({
                 -- 必要に応じてclangdの設定を追加
                 -- 例: コンパイルフラグの指定
                 -- cmd = { "clangd", "--compile-flags=-I/usr/local/include" },
+            })
+        elseif server_name == "dockerls" then
+            require("lspconfig").dockerls.setup({
+                settings = {
+                    docker = {
+                        languageserver = {
+                            formatter = {
+                                ignoreMultilineInstructions = true,
+                            },
+                        },
+                    }
+                }
             })
         else
             require("lspconfig")[server_name].setup({})
