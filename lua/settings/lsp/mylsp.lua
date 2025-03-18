@@ -1,7 +1,7 @@
 require("mason").setup()
 
 require("mason-lspconfig").setup({
-    ensure_installed = { "lua_ls", "jdtls", "bashls", "clangd", "ts_ls", "jsonls", "pylsp", "html", "dockerls", },
+    ensure_installed = { "lua_ls", "jdtls", "bashls", "clangd", "ts_ls", "jsonls", "pyright", "html", "dockerls", },
     automatic_installation = true,
 })
 
