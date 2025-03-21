@@ -17,3 +17,17 @@ map('n', '<S-Tab>', '<<', opts)
 -- search
 -- delete highlight
 map("n", "<leader>hh", '<Cmd>nohlsearch<CR>', opts)
+
+-- tab size
+local function set_tabstop(tabstop)
+  -- vim.opt.tabstop = tabstop
+  vim.opt.shiftwidth = tabstop
+  -- vim.opt.expandtab = false
+  vim.notify("Set tab size to " .. tabstop, "info")
+end
+
+for i = 1, 8 do
+  fmap("n", "<leader>t" .. i, function()
+    set_tabstop(i)
+  end, opts)
+end
