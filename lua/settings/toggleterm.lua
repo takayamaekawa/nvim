@@ -4,7 +4,7 @@ local mycmd = ""
 local os_name = vim.loop.os_uname().sysname
 
 if os_name == "Windows_NT" then
-  mycmd = "cmd"
+  mycmd = "pwsh"
 else
   mycmd = "bash"
 end
