@@ -1,6 +1,5 @@
 return {
-    {
-      "andweeb/presence.nvim",
-      lazy = false,
-    },
+  'vyfor/cord.nvim',
+  build = ':Cord update',
+  -- opts = {}
 }
