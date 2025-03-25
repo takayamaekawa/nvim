@@ -4,7 +4,6 @@ require("settings.options")
 require("settings.commands")
 require("settings.lualine")
 require("settings.nvim-tree")
-require("settings.session-manager")
 require("settings.dap")
 require("settings.nvim-notify")
 require("settings.git")
@@ -18,3 +17,7 @@ require("settings.toggleterm")
 
 require("settings.keymaps")
 
+
+local mysession = require("settings.session-manager")
+mysession.setup()
+mysession.check_and_load_session()
