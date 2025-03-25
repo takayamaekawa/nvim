@@ -1,9 +1,9 @@
 vim.o.number = true
 vim.opt.title = false
 vim.o.ambiwidth = 'double'
-vim.o.tabstop = 4
+vim.o.tabstop = 2
 vim.o.expandtab = true
-vim.o.shiftwidth = 4
+vim.o.shiftwidth = 2
 vim.o.smartindent = true
 vim.o.list = true
 vim.o.listchars = 'tab:»- ,trail:-,eol:↲,extends:»,precedes:«,nbsp:%'
