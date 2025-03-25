@@ -16,4 +16,3 @@ require("settings.overseer")
 require("settings.toggleterm")
 
 require("settings.keymaps")
-require("settings.indent-blankline")
