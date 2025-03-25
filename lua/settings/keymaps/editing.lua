@@ -3,7 +3,7 @@ local fmap = vim.keymap.set
 local opts = { noremap = true, silent = true }
 
 -- indent
-map('n', 'S-f', 'gg=G', opts) -- [i]ndent [f]ile
+map('n', '<S-f>', 'gg=G', opts) -- [i]ndent [f]ile
 fmap('n', 'O', function()
   local current_line = vim.fn.line('.')
   vim.api.nvim_command(current_line .. 'put =' .. 'repeat(nr2char(10), 1)')
