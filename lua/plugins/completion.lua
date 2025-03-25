@@ -31,6 +31,9 @@ return {
                 ["<C-Space>"] = cmp.mapping.complete(), -- 追加
                 ["<CR>"] = cmp.mapping.confirm({ select = true }),
             }),
+            -- completion = {
+            --     completeopt = 'menu,menuone,noselect',
+            -- },
         }
 
         cmp.setup.cmdline({ "/", "?" }, {

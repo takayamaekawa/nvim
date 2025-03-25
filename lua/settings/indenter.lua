@@ -1,9 +1,17 @@
 local M = {}
 
+-- local function complete_directory(prompt, default)
+--   local input = vim.fn.input(prompt, default, 'file')
+--   if input == '' then
+--     return nil
+--   end
+--   return input
+-- end
+
 function M.indent_dir()
   local current_dir = vim.fn.getcwd()
-
-  vim.ui.input({ prompt = "ディレクトリパスを入力してください:", default = current_dir }, function(input)
+  -- local input = complete_directory("ディレクトリパスを入力してください:", current_dir)
+  vim.ui.input({ prompt = "ディレクトリパスを入力してください:", default = current_dir, completion = 'file' }, function(input)
     if input then
       local job_ids = {}
 
