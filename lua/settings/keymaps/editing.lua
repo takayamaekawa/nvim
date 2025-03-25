@@ -35,3 +35,6 @@ for i = 1, 8 do
     set_tabstop(i)
   end, opts)
 end
+
+-- [s]elect [a]ll area by visual mode
+map('n', '<leader>sa', 'ggVG', opts)
