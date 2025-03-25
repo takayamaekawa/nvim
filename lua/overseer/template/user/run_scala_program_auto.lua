@@ -53,8 +53,8 @@ return {
     end
 
     if package_name == "" then
-        vim.notify("パッケージ宣言のないファイルは実行できません。", vim.log.levels.ERROR)
-        return
+      vim.notify("パッケージ宣言のないファイルは実行できません。", vim.log.levels.ERROR)
+      return
     end
 
     -- 完全修飾クラス名を生成

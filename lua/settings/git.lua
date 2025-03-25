@@ -1,7 +1,7 @@
 require('git').setup({
-    default_mapping = false,
+  default_mapping = false,
 
-    keymaps = {
-        diff = "<Leader>cd",
-    },
+  keymaps = {
+    diff = "<Leader>cd",
+  },
 })

@@ -1,7 +1,7 @@
 local M = {}
 
 M.setup = function()
-    require("session_manager").setup({
+  require("session_manager").setup({
     -- セッションファイルの保存場所
     session_dir = vim.fn.stdpath("data") .. "/sessions/",
 

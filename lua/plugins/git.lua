@@ -1,4 +1,4 @@
 return {
-    { 'dinhhuy258/git.nvim' }
+  { 'dinhhuy258/git.nvim' }
 }
 

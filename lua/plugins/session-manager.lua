@@ -4,6 +4,6 @@ return {
     "nvim-lua/plenary.nvim",
   },
   config = function()
-      require("settings.session-manager").setup()
+    require("settings.session-manager").setup()
   end,
 }

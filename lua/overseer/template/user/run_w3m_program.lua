@@ -8,7 +8,7 @@ return {
     return {
       cmd = { "bash", "-c", "search " .. search_query },
       components = { "default" },
-    -- see https://github.com/stevearc/overseer.nvim/blob/master/doc/strategies.md#terminal
+      -- see https://github.com/stevearc/overseer.nvim/blob/master/doc/strategies.md#terminal
       strategy = {
         "toggleterm",
         direction = "vertical",

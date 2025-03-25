@@ -9,24 +9,24 @@ local overseer = require('overseer')
 
 -- Overseer
 fmap("n", "<leader>ss", function()
-    overseer.run_template({ name = 'Run W3m Program' })
+  overseer.run_template({ name = 'Run W3m Program' })
 end, opts)
 fmap("n", "<leader>tt", function()
-    overseer.run_template({ name = 'Open Toggleterm in Tab' })
+  overseer.run_template({ name = 'Open Toggleterm in Tab' })
 end, opts)
 fmap("n", "<leader>rr", function()
-    -- get the file extension
-    local filetype = vim.fn.expand('%:e')
+  -- get the file extension
+  local filetype = vim.fn.expand('%:e')
 
-    if filetype == "c" then
-        overseer.run_template({ name = 'Run C Program' })
-    elseif filetype == "cpp" then
-        overseer.run_template({ name = 'Run C++ Program' })
-    elseif filetype == "scala" then
-        overseer.run_template({ name = 'Run Scala Program (Auto)' })
-    else
-        vim.notify(filetype .. "ファイルに対応するテンプレートはありません。", vim.log.levels.ERROR)
-    end
+  if filetype == "c" then
+    overseer.run_template({ name = 'Run C Program' })
+  elseif filetype == "cpp" then
+    overseer.run_template({ name = 'Run C++ Program' })
+  elseif filetype == "scala" then
+    overseer.run_template({ name = 'Run Scala Program (Auto)' })
+  else
+    vim.notify(filetype .. "ファイルに対応するテンプレートはありません。", vim.log.levels.ERROR)
+  end
 end, opts)
 
 -- Telescope

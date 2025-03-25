@@ -31,17 +31,17 @@ return {
         },
       }
     else
-        local output = vim.fn.expand("%:p:r")
-        return {
-          cmd = { "bash", "-c", string.format("gcc -o %s %s && %s", output, filepath, output) },
-          components = { "on_exit_set_status" },
-          strategy = {
-            "toggleterm",
-            direction = "horizontal",
-            hidden = true,
-            -- size = term_size,
-          },
-        }
+      local output = vim.fn.expand("%:p:r")
+      return {
+        cmd = { "bash", "-c", string.format("gcc -o %s %s && %s", output, filepath, output) },
+        components = { "on_exit_set_status" },
+        strategy = {
+          "toggleterm",
+          direction = "horizontal",
+          hidden = true,
+          -- size = term_size,
+        },
+      }
     end
   end,
 }
