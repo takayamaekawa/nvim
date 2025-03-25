@@ -16,4 +16,4 @@ require("settings.overseer")
 require("settings.toggleterm")
 
 require("settings.keymaps")
-require("lua.settings.indent-blankline")
+require("settings.indent-blankline")
