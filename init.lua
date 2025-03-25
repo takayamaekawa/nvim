@@ -16,6 +16,3 @@ require("settings.overseer")
 require("settings.toggleterm")
 
 require("settings.keymaps")
-
--- local mysession = require("settings.session-manager")
--- mysession.check_and_load_session()
