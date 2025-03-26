@@ -6,8 +6,11 @@ require("mason-lspconfig").setup({
 })
 
 require("mason-lspconfig").setup_handlers({
-  function (server_name)
-    if server_name == "jdtls" then
+  function(server_name)
+    local filetype = vim.bo.filetype
+    if server_name == "html" and filetype == "ejs" then
+      return
+    elseif server_name == "jdtls" then
       -- 以下、javaファイルを開いた際にnvim-metalsを競合しないために必要
       local current_file = vim.api.nvim_buf_get_name(0)
       local current_dir = vim.fn.expand("%:p:h")
@@ -17,7 +20,6 @@ require("mason-lspconfig").setup_handlers({
         -- .scalaファイルが存在する場合、jdtlsを起動しない
         return
       end
-
 
       require("settings.lsp.env").set_env()
       require('java').setup({})
@@ -61,4 +63,3 @@ vim.diagnostic.config({
     source = "always",
   },
 })
-
