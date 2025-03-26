@@ -2,6 +2,9 @@ local map = vim.api.nvim_set_keymap
 local fmap = vim.keymap.set
 local opts = { noremap = true, silent = true }
 
+-- [s]elect [a]ll area by visual mode
+map('n', '<S-a>', 'ggVG', opts)
+
 -- indent
 map('n', '<S-f>', 'gg=G', opts) -- [i]ndent [f]ile
 map('n', '<S-w>', ':w<CR>', opts)
