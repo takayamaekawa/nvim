@@ -21,4 +21,4 @@ require("ibl").setup({
     char = "|",
   },
 })
-require("settings.confirm")
+require("settings.conform")
