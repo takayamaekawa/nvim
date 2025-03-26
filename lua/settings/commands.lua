@@ -4,6 +4,7 @@ local diagnostics = require("settings.diagnostics")
 function ShowLspDiagnosticsInQuickfix()
   vim.diagnostic.setqflist({ severity = vim.diagnostic.severity.ERROR })
 end
+
 function CopyLspErrorsToClipboard()
   -- 現在のバッファのエラーを取得
   local diagnostics = vim.diagnostic.get(0, { severity = vim.diagnostic.severity.ERROR })
@@ -16,7 +17,7 @@ function CopyLspErrorsToClipboard()
   local errors = {}
   for _, diag in ipairs(diagnostics) do
     table.insert(errors, string.format("%s:%d:%d: %s",
-    vim.api.nvim_buf_get_name(0), diag.lnum + 1, diag.col + 1, diag.message))
+      vim.api.nvim_buf_get_name(0), diag.lnum + 1, diag.col + 1, diag.message))
   end
 
   -- クリップボードにコピー
