@@ -21,3 +21,4 @@ require("ibl").setup({
     char = "|",
   },
 })
+  require("settings.confirm")

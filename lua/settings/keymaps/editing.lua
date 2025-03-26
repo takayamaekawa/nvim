@@ -7,7 +7,7 @@ map('n', '<S-f>', 'gg=G', opts) -- [i]ndent [f]ile
 fmap('n', 'O', function()
   local current_line = vim.fn.line('.')
   vim.api.nvim_command(current_line .. 'put =' .. 'repeat(nr2char(10), 1)')
-  vim.api.nvim_win_set_cursor(0, {current_line + 1, 0})
+  vim.api.nvim_win_set_cursor(0, { current_line + 1, 0 })
 end, opts)
 -- by tab
 map('v', '<Tab>', '>gv', opts)
