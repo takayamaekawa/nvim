@@ -37,7 +37,8 @@ map("n", "<leader>nn", '<Cmd>Telescope notify<CR>', opts)
 
 -- SessionManager
 map('n', '<leader>lg', '<Cmd>SessionManager load_git_session<CR>', opts)
-map('n', '<leader>ld', '<Cmd>SessionManager load_current_dir_session<CR>', opts);
+map('n', '<leader>ld', '<Cmd>SessionManager load_current_dir_session<CR>', opts)
+map('n', '<leader>lsd', '<Cmd>SessionManager delete_current_dir_session<CR>', opts)
 
 -- NvimTree
 map('n', '<Leader>ee', ':NvimTreeToggle<CR>', opts)
@@ -61,4 +62,3 @@ fmap('n', '<bF12>', dap.disconnect, { desc = 'Disconnect' })
 fmap("n", "<leader>dr", dap.repl.toggle, opts)
 
 fmap("n", "<leader>dK", dapui_widget.hover, opts)
-
