@@ -46,6 +46,17 @@ require("mason-lspconfig").setup_handlers({
           }
         }
       })
+    elseif server_name == "pyright" then
+      require("lspconfig").pyright.setup({
+        settings = {
+          python = {
+            formatting = {
+              provider = "ruff",
+              tabSize = 2,
+            }
+          }
+        }
+      })
     else
       require("lspconfig")[server_name].setup({})
     end
