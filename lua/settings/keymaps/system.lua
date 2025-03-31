@@ -69,8 +69,6 @@ fmap('n', '<Leader>fd', function()
   local ext_list = vim.split(extensions, ",")
   local exclude_list = vim.split(exclude_paths, ",")
 
-  vim.notify(vim.inspect(exclude_list), "info")
-
   local matched_files = {}
 
   for _, dir_path in ipairs(dir_list) do
