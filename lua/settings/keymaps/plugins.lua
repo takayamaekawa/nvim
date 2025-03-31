@@ -38,7 +38,10 @@ map("n", "<leader>nn", '<Cmd>Telescope notify<CR>', opts)
 -- SessionManager
 map('n', '<leader>lg', '<Cmd>SessionManager load_git_session<CR>', opts)
 map('n', '<leader>ld', '<Cmd>SessionManager load_current_dir_session<CR>', opts)
-map('n', '<leader>lsd', '<Cmd>SessionManager delete_current_dir_session<CR>', opts)
+fmap('n', '<leader>lsd', function()
+  vim.cmd('SessionManager delete_current_dir_session')
+  vim.notify("Current session is deleted.", "info")
+end, opts)
 
 -- NvimTree
 map('n', '<Leader>ee', ':NvimTreeToggle<CR>', opts)
