@@ -1,23 +1,23 @@
 return {
   "hrsh7th/nvim-cmp",
-  event = { "InsertEnter", "CmdlineEnter" }, -- CmdlineEnterを追加
+  event = { "InsertEnter", "CmdlineEnter" },
   dependencies = {
     { "hrsh7th/cmp-nvim-lsp" },
     { "hrsh7th/cmp-vsnip" },
     { "hrsh7th/vim-vsnip" },
-    { "hrsh7th/cmp-buffer" }, -- 追加
-    { "hrsh7th/cmp-path" },   -- 追加
-    { "hrsh7th/cmp-cmdline" }, -- 追加
+    { "hrsh7th/cmp-buffer" },
+    { "hrsh7th/cmp-path" },
+    { "hrsh7th/cmp-cmdline" },
   },
   opts = function()
     local cmp = require("cmp")
     local conf = {
-      sources = cmp.config.sources({ -- sourcesを修正
+      sources = cmp.config.sources({
         { name = "nvim_lsp" },
         { name = "vsnip" },
-        { name = "buffer" }, -- 追加
-        { name = "path" },   -- 追加
-        { name = "cmdline" }, -- こっちへ移動
+        { name = "buffer" },
+        { name = "path" },
+        { name = "cmdline" },
       }),
       snippet = {
         expand = function(args)
@@ -26,15 +26,15 @@ return {
         end,
       },
       mapping = cmp.mapping.preset.insert({
-        ["<Tab>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }), -- 追加
-        ["<S-Tab>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }), -- 追加
-        ["<C-Space>"] = cmp.mapping.complete(), -- 追加
+        ["<Tab>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
+        ["<S-Tab>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
+        ["<C-Space>"] = cmp.mapping.complete(),
         ["<CR>"] = cmp.mapping.confirm({ select = true }),
       }),
       -- completion = {
-        --     completeopt = 'menu,menuone,noselect',
-        -- },
-      }
+      --   completeopt = 'menu,menuone,noselect',
+      -- },
+    }
 
     cmp.setup.cmdline({ "/", "?" }, {
       mapping = cmp.mapping.preset.cmdline(),
@@ -52,6 +52,6 @@ return {
       },
     })
 
-      return conf
-    end
-  }
+    return conf
+  end
+}
