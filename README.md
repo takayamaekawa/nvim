@@ -1,4 +1,7 @@
-# My-Neovim-Setting
+# nvim
+
+## Feature
+This is my all neovim settings.
 
 ## Note
 ### Install
