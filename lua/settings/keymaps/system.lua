@@ -19,6 +19,11 @@ map("t", "<C-\\><C-q><C-q>", ":qall<CR>", opts)
 map("n", "<leader>wa", ":wall<CR>", opts)
 -- clip the file name
 fmap('n', '<Leader>fn', function()
+-- clip all notifications
+fmap('n', '<leader>fn', function()
+  require("settings.nvim-notify").copy_notifications_to_clipboard()
+end, opts)
+
   vim.fn.setreg('+', vim.fn.expand('%:t'))
   vim.notify("Copied the current file name. (" .. vim.fn.expand('%:t') .. ")", "info")
 end, opts)
