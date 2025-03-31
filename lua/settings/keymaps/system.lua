@@ -14,25 +14,31 @@ map('n', '<F2>', ':if &mouse == "" | set mouse=a | echo "Mouse: ON" | else | set
 map("n", "<leader>qq", ":qall<CR>", opts)
 map("t", "<C-\\><C-q><C-q>", ":qall<CR>", opts)
 
--- file operation
+-- terminal
+-- open by default nvim's one
+map('n', '<leader>ts', '<Cmd>terminal<CR>', opts);
+
+-- file
 -- save all file
 map("n", "<leader>wa", ":wall<CR>", opts)
--- clip the file name
-fmap('n', '<Leader>fn', function()
+
+-- clipboard operation
 -- clip all notifications
 fmap('n', '<leader>fn', function()
   require("settings.nvim-notify").copy_notifications_to_clipboard()
 end, opts)
 
+-- clip the [f]ile [p]ath [b]asename
+fmap('n', '<Leader>fpb', function()
   vim.fn.setreg('+', vim.fn.expand('%:t'))
   vim.notify("Copied the current file name. (" .. vim.fn.expand('%:t') .. ")", "info")
 end, opts)
--- clip the relative file path
+-- clip the [f]ile [p]ath [r]elative
 fmap('n', '<Leader>fpr', function()
   vim.fn.setreg('+', vim.fn.expand('%:p:.'))
   vim.notify("Copied the current file's relative path. (" .. vim.fn.expand('%:p:.') .. ")", "info")
 end, opts)
--- clip the absolute file path
+-- clip the [f]ile [p]ath [a]bsolute
 fmap('n', '<Leader>fpa', function()
   vim.fn.setreg('+', vim.fn.expand('%:p'))
   vim.notify("Copied the current file's absolute path. (" .. vim.fn.expand('%:p') .. ")", "info")
@@ -107,7 +113,3 @@ fmap('n', '<Leader>fd', function()
     vim.notify("Copied the all matched files' relative path and content. (" .. current_time .. ")", "info")
   end
 end, opts)
-
--- terminal
--- open by default nvim's one
-map('n', '<leader>ts', '<Cmd>terminal<CR>', opts);
