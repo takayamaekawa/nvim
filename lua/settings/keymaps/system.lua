@@ -1,4 +1,4 @@
-local utils = require("lua.functions.utils")
+local utils = require("func.utils")
 
 local map = vim.api.nvim_set_keymap
 local fmap = vim.keymap.set
