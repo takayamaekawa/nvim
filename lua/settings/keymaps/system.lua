@@ -1,3 +1,5 @@
+local utils = require("lua.functions.utils")
+
 local map = vim.api.nvim_set_keymap
 local fmap = vim.keymap.set
 local opts = { noremap = true, silent = true }
@@ -67,28 +69,18 @@ fmap('n', '<Leader>fd', function()
   local ext_list = vim.split(extensions, ",")
   local exclude_list = vim.split(exclude_paths, ",")
 
+  vim.notify(vim.inspect(exclude_list), "info")
+
   local matched_files = {}
 
   for _, dir_path in ipairs(dir_list) do
     local abs_dir_path = vim.fn.expand(dir_path)
-    local files = vim.fn.readdir(abs_dir_path)
+    local all_files = {}
+    utils.recursive_readdir(abs_dir_path, all_files, exclude_list)
 
-    for _, file in ipairs(files) do
-      local file_path = vim.fn.join({ abs_dir_path, file }, "/")
-
-      local file_ext = string.match(file, "%.(%w+)$")
-      local is_excluded = false
-
-      if #exclude_list > 0 and exclude_paths ~= "" then
-        for _, exclude_path in ipairs(exclude_list) do
-          if vim.fn.match(file_path, exclude_path) ~= -1 then
-            is_excluded = true
-            break
-          end
-        end
-      end
-
-      if not is_excluded and file_ext ~= "" then
+    for _, file_path in ipairs(all_files) do
+      local file_ext = string.match(file_path, "%.(%w+)$")
+      if file_ext then
         for _, ext in ipairs(ext_list) do
           if file_ext == ext or extensions == "*" then
             table.insert(matched_files, file_path)
@@ -111,5 +103,7 @@ fmap('n', '<Leader>fd', function()
     end
     vim.fn.setreg('+', clipboard_content)
     vim.notify("Copied the all matched files' relative path and content. (" .. current_time .. ")", "info")
+
+    vim.fn.input("Copied successfully! Press Enter to return.", "")
   end
 end, opts)
