@@ -21,7 +21,7 @@ This is my all neovim settings.
 Of course, this is working well at Linux environment, but it can't be guarantee to work completely in other OS.  
 * Probably, Windows is OK.  
 - Windows Demo  
-![windows-test](https://github.com/bella2391/branding/blob/master/explain/my-nvim/windows_test.gif)  
+![windows-test](https://raw.githubusercontent.com/bella2391/branding/refs/heads/master/repo/nvim/windows_test.gif)  
 For COP, I write condition like [lua/settings/toggleterm.lua](lua/settings/toggleterm.lua)
 
 ## Preview
@@ -43,15 +43,15 @@ Setting: [lua/settings/lsp/](lua/settings/lsp/)
 Keymap: [lua/settings/keymaps/lsp.lua](lua/settings/keymaps/lsp.lua)
 
 - Completion  
-![completion](https://github.com/bella2391/branding/blob/master/explain/my-nvim/completion.gif)  
+![completion](https://raw.githubusercontent.com/bella2391/branding/refs/heads/master/repo/nvim/completion.gif)  
 - Hover Explanation  
-![hover-explanation](https://github.com/bella2391/branding/blob/master/explain/my-nvim/hover_explanation.gif)  
+![hover-explanation](https://raw.githubusercontent.com/bella2391/branding/refs/heads/master/repo/nvim/hover_explanation.gif)  
 - Jump Definition  
-![jump-definition](https://github.com/bella2391/branding/blob/master/explain/my-nvim/jump_definition.gif)  
+![jump-definition](https://raw.githubusercontent.com/bella2391/branding/refs/heads/master/repo/nvim/jump_definition.gif)  
 - Jump Type Referece  
-![jump-type-reference](https://github.com/bella2391/branding/blob/master/explain/my-nvim/jump_type_definition.gif)  
+![jump-type-reference](https://raw.githubusercontent.com/bella2391/branding/refs/heads/master/repo/nvim/jump_type_definition.gif)  
 - Jump Reference  
-![jump-referece](https://github.com/bella2391/branding/blob/master/explain/my-nvim/jump_referece.gif)
+![jump-referece](https://raw.githubusercontent.com/bella2391/branding/refs/heads/master/repo/nvim/jump_referece.gif)
 
 ### Debugger
 This is required for coop with LSP setting in advance  
@@ -66,7 +66,7 @@ Setting: [lua/settings/dap.lua](lua/settings/dap.lua)
   
 Keymap: [lua/settings/keymaps/plugins.lua#L47](lua/settings/keymaps/plugins.lua#L47)
   
-![dap-debug](https://github.com/bella2391/branding/blob/master/explain/my-nvim/dap_debug.gif)
+![dap-debug](https://raw.githubusercontent.com/bella2391/branding/refs/heads/master/repo/nvim/dap_debug.gif)
 
 ### Task Runner
 Plugin: [stevearc/overseer.nvim](https://github.com/stevearc/overseer.nvim)
@@ -79,7 +79,7 @@ Task Definition: [lua/overseer/template/user/](lua/overseer/template/user/)
   
 Keymap: [lua/settings/keymaps/plugins.lua#L10](lua/settings/keymaps/plugins.lua#L10)
   
-![run-overseer-task](https://github.com/bella2391/branding/blob/master/explain/my-nvim/run_overseer_task.gif)
+![run-overseer-task](https://raw.githubusercontent.com/bella2391/branding/refs/heads/master/repo/nvim/run_overseer_task.gif)
 
 ### Search File Or Text
 Plugin: [nvim-telescope/telescope.nvim](https://github.com/nvim-telescope/telescope.nvim)
@@ -91,13 +91,13 @@ Setting: [lua/settings/nvim-tree.lua](lua/settings/nvim-tree.lua)
 Keymap: [lua/settings/keymaps/plugins.lua#L32](lua/settings/keymaps/plugins.lua#L32)
   
 - Find Files And Jump  
-![telescope-find-files](https://github.com/bella2391/branding/blob/master/explain/my-nvim/telescope_find_files.gif)  
+![telescope-find-files](https://raw.githubusercontent.com/bella2391/branding/refs/heads/master/repo/nvim/telescope_find_files.gif)  
 - Find Text  
-![telescope-search-text](https://github.com/bella2391/branding/blob/master/explain/my-nvim/telescope_search_text.gif)
+![telescope-search-text](https://raw.githubusercontent.com/bella2391/branding/refs/heads/master/repo/nvim/telescope_search_text.gif)
 
 ### System Utility
 Here is my [lua/settings/keymaps/system.lua#L14](lua/settings/keymaps/system.lua#L14)  
-![system-copy](https://github.com/bella2391/branding/blob/master/explain/my-nvim/system_copy.gif)
+![system-copy](https://raw.githubusercontent.com/bella2391/branding/refs/heads/master/repo/nvim/system_copy.gif)
 
 ## Keymaps
 See [lua/settings/keymaps](lua/settings/keymaps/)
