@@ -129,5 +129,4 @@ I'm glowing up with Neovim, which is for only myself.
 Wanna be a Vimmer?
 
 ## License
-[MIT](LICENSE.txt)
-
+[MIT](LICENSE)
