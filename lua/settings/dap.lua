@@ -13,12 +13,12 @@ dap.adapters.java = function(callback)
 end
 
 local fmc_classpaths = {
-  "/home/bella/git/FMC/common/build/classes/java/main",
-  "/home/bella/git/FMC/fabric/favcore/build/classes/java/main",
-  "/home/bella/git/FMC/forge/fovcore/build/classes/java/main",
-  "/home/bella/git/FMC/neoforge/neofovcore/build/classes/java/main",
-  "/home/bella/git/FMC/spigot/svcore/build/classes/java/main",
-  "/home/bella/git/FMC/velocity/build/classes/java/main",
+  "/home/verazza/git/FMC/common/build/classes/java/main",
+  "/home/verazza/git/FMC/fabric/favcore/build/classes/java/main",
+  "/home/verazza/git/FMC/forge/fovcore/build/classes/java/main",
+  "/home/verazza/git/FMC/neoforge/neofovcore/build/classes/java/main",
+  "/home/verazza/git/FMC/spigot/svcore/build/classes/java/main",
+  "/home/verazza/git/FMC/velocity/build/classes/java/main",
 }
 
 dap.configurations.java = {
@@ -96,9 +96,8 @@ dap.listeners.before.launch.dapui_config = function()
   dapui.open()
 end
 -- dap.listeners.before.event_terminated.dapui_config = function()
-  --     dapui.close()
-  -- end
-  -- dap.listeners.before.event_exited.dapui_config = function()
-    --     dapui.close()
-    -- end
-
+--     dapui.close()
+-- end
+-- dap.listeners.before.event_exited.dapui_config = function()
+--     dapui.close()
+-- end
