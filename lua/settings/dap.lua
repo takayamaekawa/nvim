@@ -12,31 +12,31 @@ dap.adapters.java = function(callback)
   })
 end
 
-local fmc_classpaths = {
-  "/home/verazza/git/FMC/common/build/classes/java/main",
-  "/home/verazza/git/FMC/fabric/favcore/build/classes/java/main",
-  "/home/verazza/git/FMC/forge/fovcore/build/classes/java/main",
-  "/home/verazza/git/FMC/neoforge/neofovcore/build/classes/java/main",
-  "/home/verazza/git/FMC/spigot/svcore/build/classes/java/main",
-  "/home/verazza/git/FMC/velocity/build/classes/java/main",
+local classpaths = {
+  "/home/verazza/git/kishax/common/build/classes/java/main",
+  "/home/verazza/git/kishax/fabric/favcore/build/classes/java/main",
+  "/home/verazza/git/kishax/forge/fovcore/build/classes/java/main",
+  "/home/verazza/git/kishax/neoforge/neofovcore/build/classes/java/main",
+  "/home/verazza/git/kishax/spigot/svcore/build/classes/java/main",
+  "/home/verazza/git/kishax/velocity/build/classes/java/main",
 }
 
 dap.configurations.java = {
   {
-    name = '[FMC] Java: Debug Current File: Launch',
+    name = '[kishax] Java: Debug Current File: Launch',
     type = 'java',
     request = 'launch',
     mainClass = '${file}',
-    projectName = "FMC",
-    classPaths = fmc_classpaths,
+    projectName = "kishax",
+    classPaths = classpaths,
   },
   {
-    name = '[FMC] Java: Debug Current File: Attach',
+    name = '[kishax] Java: Debug Current File: Attach',
     type = 'java',
     request = 'attach',
     mainClass = '${file}',
-    projectName = "FMC",
-    classPaths = fmc_classpaths,
+    projectName = "kishax",
+    classPaths = classpaths,
   },
 }
 
