@@ -30,8 +30,8 @@ fmap('n', '<leader>fn', function()
   require("settings.nvim-notify").copy_notifications_to_clipboard()
 end, opts)
 
--- clip the [f]ile [p]ath [b]asename
-fmap('n', '<Leader>fpb', function()
+-- clip the [f]ile [p]ath base[n]ame
+fmap('n', '<Leader>fpn', function()
   vim.fn.setreg('+', vim.fn.expand('%:t'))
   vim.notify("Copied the current file name. (" .. vim.fn.expand('%:t') .. ")", "info")
 end, opts)
