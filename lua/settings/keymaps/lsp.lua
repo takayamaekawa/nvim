@@ -1,3 +1,4 @@
+-- local map = vim.api.nvim_set_keymap
 local fmap = vim.keymap.set
 local opts = { noremap = true, silent = true }
 
@@ -8,7 +9,14 @@ fmap("n", "<leader>cl", vim.lsp.codelens.run, opts)
 fmap("n", "<leader>sh", vim.lsp.buf.signature_help, opts)
 fmap("n", "<leader>rn", vim.lsp.buf.rename, opts)
 fmap("n", "<leader>fm", vim.lsp.buf.format, opts)
-fmap("n", "<leader>ca", vim.lsp.buf.code_action, opts)
+-- fmap("n", "<leader>ca", vim.lsp.buf.code_action)
+vim.keymap.set('n', '<leader>co', function()
+  vim.lsp.buf.code_action({
+    context = { only = { 'source.organizeImports' } },
+    apply = true,
+  })
+end)
+-- map("n", "<leader>ca", "<Cmd>lua vim.lsp.buf.code_action()<CR>", opts)
 fmap("n", "gds", vim.lsp.buf.document_symbol, opts)
 fmap("n", "gws", vim.lsp.buf.workspace_symbol, opts)
 fmap("n", "<leader>ws", function()
@@ -47,4 +55,3 @@ fmap("n", "gr", vim.lsp.buf.references, opts)
 
 fmap("n", "<leader>ce", diagnostics.show_error_files, opts)
 fmap("n", "<leader>cw", diagnostics.show_current_error_files, opts)
-
