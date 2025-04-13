@@ -13,12 +13,12 @@ dap.adapters.java = function(callback)
 end
 
 local classpaths = {
-  "/home/verazza/git/kishax/common/build/classes/java/main",
-  "/home/verazza/git/kishax/fabric/favcore/build/classes/java/main",
-  "/home/verazza/git/kishax/forge/fovcore/build/classes/java/main",
-  "/home/verazza/git/kishax/neoforge/neofovcore/build/classes/java/main",
-  "/home/verazza/git/kishax/spigot/svcore/build/classes/java/main",
-  "/home/verazza/git/kishax/velocity/build/classes/java/main",
+  "/home/bella/git/kishax/common/build/classes/java/main",
+  "/home/bella/git/kishax/fabric/favcore/build/classes/java/main",
+  "/home/bella/git/kishax/forge/fovcore/build/classes/java/main",
+  "/home/bella/git/kishax/neoforge/neofovcore/build/classes/java/main",
+  "/home/bella/git/kishax/spigot/svcore/build/classes/java/main",
+  "/home/bella/git/kishax/velocity/build/classes/java/main",
 }
 
 dap.configurations.java = {
