@@ -29,7 +29,8 @@ return {
         ["<Tab>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
         ["<S-Tab>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
         ["<C-Space>"] = cmp.mapping.complete(),
-        ["<CR>"] = cmp.mapping.confirm({ select = true }),
+        ["<CR>"] = cmp.mapping.confirm({ select = false }),
+        ["<C-y>"] = cmp.mapping.confirm({ select = true }),
       }),
       completion = {
         completeopt = 'menu,menuone,noselect',
