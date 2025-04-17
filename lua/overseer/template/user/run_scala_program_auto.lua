@@ -2,7 +2,7 @@ return {
   name = "Run Scala Program (Auto)",
   builder = function()
     local filename = vim.fn.expand("%:t:r") -- ファイル名（拡張子なし）
-    local filepath = vim.fn.expand("%:p")    -- フルパス
+    local filepath = vim.fn.expand("%:p")   -- フルパス
     local cwd = vim.fn.getcwd()             -- 現在のディレクトリ
 
     -- .gitフォルダまでのパスを取得
@@ -61,7 +61,8 @@ return {
     local full_class_name = package_name .. "." .. filename
 
     -- ディレクトリ移動とrunMainタスクの実行
-    local cmd = "cd " .. src_path .. "/.." .. " && sbt '" .. (scope == "" and "runMain " .. full_class_name or scope .. "/runMain " .. full_class_name) .. "'"
+    -- local cmd = "cd " .. src_path .. "/.." .. " && sbt '" .. (scope == "" and "runMain " .. full_class_name or scope .. "/runMain " .. full_class_name) .. "'"
+    local cmd = "cd " .. src_path .. "/.." .. " && sbt 'runMain " .. full_class_name .. "'"
 
     -- デバッグ情報を表示
     print("src_path: " .. src_path)
