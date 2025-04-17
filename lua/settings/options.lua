@@ -1,4 +1,4 @@
-vim.o.number = true
+vim.o.number = false
 vim.opt.title = false
 vim.o.ambiwidth = 'double'
 vim.o.tabstop = 2
