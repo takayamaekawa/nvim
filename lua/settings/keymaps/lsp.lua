@@ -5,12 +5,12 @@ local opts = { noremap = true, silent = true }
 local diagnostics = require("settings.diagnostics")
 
 -- these are added from nvim-metals: https://github.com/scalameta/nvim-metals/discussions/39
-fmap("n", "<leader>cl", vim.lsp.codelens.run, opts)
-fmap("n", "<leader>sh", vim.lsp.buf.signature_help, opts)
-fmap("n", "<leader>rn", vim.lsp.buf.rename, opts)
-fmap("n", "<leader>fm", vim.lsp.buf.format, opts)
+fmap("n", "<leader>cl", function() vim.lsp.codelens.run({}) end)
+fmap("n", "<leader>sh", function() vim.lsp.buf.signature_help({}) end)
+fmap("n", "<leader>rn", function() vim.lsp.buf.rename({}) end)
+fmap("n", "<leader>fm", function() vim.lsp.buf.format({}) end)
 -- fmap("n", "<leader>ca", vim.lsp.buf.code_action)
-vim.keymap.set('n', '<leader>co', function()
+fmap('n', '<leader>co', function()
   vim.lsp.buf.code_action({
     -- context = { only = { 'source.organizeImports' } },
     -- apply = true,
