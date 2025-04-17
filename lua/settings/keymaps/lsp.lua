@@ -12,8 +12,8 @@ fmap("n", "<leader>fm", vim.lsp.buf.format, opts)
 -- fmap("n", "<leader>ca", vim.lsp.buf.code_action)
 vim.keymap.set('n', '<leader>co', function()
   vim.lsp.buf.code_action({
-    context = { only = { 'source.organizeImports' } },
-    apply = true,
+    -- context = { only = { 'source.organizeImports' } },
+    -- apply = true,
   })
 end)
 -- map("n", "<leader>ca", "<Cmd>lua vim.lsp.buf.code_action()<CR>", opts)
