@@ -5,7 +5,7 @@ return {
     { "hrsh7th/cmp-nvim-lsp" },
     { "hrsh7th/cmp-vsnip" },
     { "hrsh7th/vim-vsnip" },
-    { "hrsh7th/cmp-buffer" },
+    -- { "hrsh7th/cmp-buffer" },
     { "hrsh7th/cmp-path" },
     { "hrsh7th/cmp-cmdline" },
   },
@@ -15,7 +15,7 @@ return {
       sources = cmp.config.sources({
         { name = "nvim_lsp" },
         { name = "vsnip" },
-        { name = "buffer" },
+        -- { name = "buffer" },
         { name = "path" },
         { name = "cmdline" },
       }),
@@ -40,7 +40,7 @@ return {
     cmp.setup.cmdline({ "/", "?" }, {
       mapping = cmp.mapping.preset.cmdline(),
       sources = {
-        { name = "buffer" },
+        -- { name = "buffer" },
         { name = "path" },
       },
     })
