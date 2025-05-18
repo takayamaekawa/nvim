@@ -8,6 +8,7 @@ require("settings.dap")
 require("settings.nvim-notify")
 require("settings.git")
 
-require("settings.lsp.mylsp")
+require("settings.lsp")
+
 require("settings.overseer")
 require("settings.toggleterm")

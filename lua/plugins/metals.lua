@@ -4,7 +4,7 @@ return {
     "nvim-lua/plenary.nvim",
   },
   ft = { "scala", "sbt", "java" },
-  opts = require("settings.lsp.metals").opts, -- opts関数を読み込む
+  opts = require("settings.metals").opts, -- opts関数を読み込む
   config = function(self, metals_config)
     -- 以下、javaファイルを開いた際にnvim-javaと競合しないために必要
     local current_dir = vim.fn.expand("%:p:h")
