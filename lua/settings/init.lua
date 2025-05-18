@@ -9,3 +9,5 @@ require("settings.nvim-notify")
 require("settings.git")
 
 require("settings.lsp.mylsp")
+require("settings.overseer")
+require("settings.toggleterm")
