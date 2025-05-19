@@ -1,5 +1,5 @@
 vim.lsp.config('*', {
-  capabilities = require('cmp_nvim_lsp').default_capabilities(),
+  capabilities = require("cmp_nvim_lsp").default_capabilities(),
   on_attach = require("settings.keymaps.lsp").on_attach
 })
 
@@ -16,9 +16,6 @@ require("mason-lspconfig").setup({
   automatic_installation = true,
 })
 
--- nvim-java のセットアップ (jdtls を使う場合に必要)
--- jdtls の設定読み込みより前に実行するのが安全
-vim.opt.shortmess:append("A")
 if vim.tbl_contains(servers_to_ensure, "jdtls") then
   local java_ok, java = pcall(require, "java")
   if java_ok then
@@ -28,9 +25,9 @@ if vim.tbl_contains(servers_to_ensure, "jdtls") then
   end
 end
 
-for _, server_name in ipairs(servers_to_ensure) do
-  vim.lsp.enable(server_name)
-end
+require("neodev").setup({})
+
+vim.lsp.enable(servers_to_ensure)
 
 vim.diagnostic.config({
   virtual_text = true,
