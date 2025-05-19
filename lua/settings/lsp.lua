@@ -1,5 +1,6 @@
 vim.lsp.config('*', {
   capabilities = require('cmp_nvim_lsp').default_capabilities(),
+  on_attach = require("settings.keymaps.lsp").on_attach
 })
 
 require("mason").setup()
