@@ -20,9 +20,7 @@ vim.lsp.enable(servers_to_ensure)
 
 vim.lsp.config('*', {
   capabilities = require("cmp_nvim_lsp").default_capabilities(),
-  on_attach = function(client, bufnr)
-    require("settings.keymaps.lsp").on_attach(client, bufnr)
-  end
+  -- on_attach = require("settings.keymaps.lsp").on_attach
 })
 
 vim.diagnostic.config({
