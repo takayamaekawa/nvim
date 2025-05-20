@@ -18,6 +18,9 @@ require("mason-lspconfig").setup({
 require("java").setup()
 require("neodev").setup()
 
+-- you have to set [server_name].lua at lsp/ or after/lsp
+-- I recommend you use that of files provided by neovim/nvim-lspconfig
+-- If you use them, you can run ~/.config/nvim/lsp.sh
 vim.lsp.enable(servers_to_ensure)
 
 vim.diagnostic.config({
