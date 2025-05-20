@@ -1,8 +1,3 @@
-vim.lsp.config('*', {
-  capabilities = require("cmp_nvim_lsp").default_capabilities(),
-  on_attach = require("settings.keymaps.lsp").on_attach
-})
-
 -- if you fail to install jdtls, try to do :MasonInstall lombok-nightly
 local servers_to_ensure = {
   "lua_ls", "bashls", "clangd", "ts_ls", "jdtls", "jsonls",
@@ -22,6 +17,13 @@ require("neodev").setup()
 -- I recommend you use that of files provided by neovim/nvim-lspconfig
 -- If you use them, you can run ~/.config/nvim/lsp.sh
 vim.lsp.enable(servers_to_ensure)
+
+vim.lsp.config('*', {
+  capabilities = require("cmp_nvim_lsp").default_capabilities(),
+  on_attach = function(client, bufnr)
+    require("settings.keymaps.lsp").on_attach(client, bufnr)
+  end
+})
 
 vim.diagnostic.config({
   virtual_text = true,
