@@ -2,9 +2,8 @@ require("conform").setup({
   log_level = vim.log.levels.DEBUG,
   formatters = {
     php_cs_fixer = {
-      command = "/home/bella/git/bbs/vendor/bin/php-cs-fixer",
-      -- args = { "fix", "--config=.php-cs-fixer.dist.php", "--using-cache=no" },
-      args = { "fix", "$FILENAME", "--config=.php-cs-fixer.dist.php", "--using-cache=no" },
+      command = "php-cs-fixer",
+      args = { "fix", "$FILENAME", "--using-cache=no" },
     },
   },
   formatters_by_ft = {
