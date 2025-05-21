@@ -2,6 +2,7 @@
 local servers_to_ensure = {
   "lua_ls", "bashls", "clangd", "ts_ls", "jdtls", "jsonls",
   "pyright", "html", "dockerls", "rust_analyzer", "powershell_es",
+  "phpactor"
 }
 
 require("mason").setup()
