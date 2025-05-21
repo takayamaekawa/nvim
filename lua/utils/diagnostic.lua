@@ -26,12 +26,12 @@ local function get_all_error_files(callback)
 
   for _, file in ipairs(files) do
     local bufnr = vim.fn.bufadd(file) -- バッファに追加
-    vim.fn.bufload(bufnr)  -- バッファをロードして LSP に診断させる
+    vim.fn.bufload(bufnr)             -- バッファをロードして LSP に診断させる
   end
 
   -- **LSP の診断を定期的にチェックする**
   local check_diagnostics
-  local max_wait = 2000  -- 最大5秒待機
+  local max_wait = 2000 -- 最大5秒待機
   local start_time = vim.loop.now()
 
   check_diagnostics = vim.schedule_wrap(function()
@@ -52,11 +52,11 @@ local function get_all_error_files(callback)
     if processed >= total_files or (vim.loop.now() - start_time) > max_wait then
       callback(vim.tbl_keys(error_files))
     else
-      vim.defer_fn(check_diagnostics, 200)  -- 200ms 後に再チェック
+      vim.defer_fn(check_diagnostics, 200) -- 200ms 後に再チェック
     end
   end)
 
-  check_diagnostics()  -- 診断チェックを開始
+  check_diagnostics() -- 診断チェックを開始
 end
 
 local function get_current_error_files()
@@ -111,6 +111,59 @@ function M.show_current_error_files()
     cwd = vim.loop.cwd(),
     find_command = { "echo", table.concat(error_files, "\n") }
   })
+end
+
+-- QuickfixウィンドウにLSPエラーを表示する関数
+function M.ShowLspDiagnosticsInQuickfix()
+  vim.diagnostic.setqflist({ severity = vim.diagnostic.severity.ERROR })
+end
+
+-- 重要度レベルを文字列に変換するヘルパー関数
+local function get_severity_name(level)
+  if level == vim.diagnostic.severity.ERROR then
+    return "ERROR"
+  elseif level == vim.diagnostic.severity.WARN then
+    return "WARN"
+  elseif level == vim.diagnostic.severity.INFO then
+    return "INFO"
+  elseif level == vim.diagnostic.severity.HINT then
+    return "HINT"
+  else
+    return "UNKNOWN"
+  end
+end
+
+-- 診断メッセージを整形してクリップボードにコピーする汎用関数
+function M.copy_diagnostics_to_clipboard(severity_level, prefix_severity)
+  -- severity_level が nil の場合、すべての診断を取得
+  local diagnostics = vim.diagnostic.get(0, severity_level and { severity = severity_level } or nil)
+
+  local severity_display_name = ""
+  if severity_level then
+    severity_display_name = get_severity_name(severity_level):lower() .. " "
+  else
+    severity_display_name = "diagnostics "
+  end
+
+  if vim.tbl_isempty(diagnostics) then
+    print("No LSP " .. severity_display_name .. "found")
+    return
+  end
+
+  local messages = {}
+  for _, diag in ipairs(diagnostics) do
+    local message_prefix = ""
+    if prefix_severity then
+      message_prefix = string.format("[%s] ", get_severity_name(diag.severity))
+    end
+    table.insert(messages, string.format("%s%s:%d:%d: %s",
+      message_prefix,
+      vim.api.nvim_buf_get_name(0), diag.lnum + 1, diag.col + 1, diag.message))
+  end
+
+  local diagnostic_text = table.concat(messages, "\n")
+  vim.fn.setreg("+", diagnostic_text)
+  print("LSP " .. severity_display_name .. "copied to clipboard")
 end
 
 return M

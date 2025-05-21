@@ -5,7 +5,21 @@
 local fmap = vim.keymap.set
 local opts = { noremap = true, silent = true }
 
-local diagnostics = require("settings.diagnostics")
+local diagnostic_utils = require("utils.diagnostic")
+
+-- 各重要度レベルの診断をコピー
+fmap("n", "<leader>fe",
+  function() diagnostic_utils.copy_diagnostics_to_clipboard(vim.diagnostic.severity.ERROR, false) end, opts)
+fmap("n", "<leader>fw",
+  function() diagnostic_utils.copy_diagnostics_to_clipboard(vim.diagnostic.severity.WARN, false) end, opts)
+fmap("n", "<leader>fi",
+  function() diagnostic_utils.copy_diagnostics_to_clipboard(vim.diagnostic.severity.INFO, false) end, opts)
+fmap("n", "<leader>fh",
+  function() diagnostic_utils.copy_diagnostics_to_clipboard(vim.diagnostic.severity.HINT, false) end, opts)
+
+-- すべての診断をコピー (重要度プレフィックス付き)
+fmap("n", "<leader>fa", function()
+  diagnostic_utils.copy_diagnostics_to_clipboard(nil, true) end, opts)
 
 -- these are added from nvim-metals: https://github.com/scalameta/nvim-metals/discussions/39
 fmap("n", "<leader>cl", function() vim.lsp.codelens.run({}) end)
@@ -56,8 +70,8 @@ fmap("n", "gr", vim.lsp.buf.references, opts)
 -- this is the same of C-K for cursor on that of variable
 -- fmap("n", "<leader>h", vim.lsp.buf.hover, opts)
 
-fmap("n", "<leader>ce", diagnostics.show_error_files, opts)
-fmap("n", "<leader>cw", diagnostics.show_current_error_files, opts)
+fmap("n", "<leader>ce", diagnostic_utils.show_error_files, opts)
+fmap("n", "<leader>cw", diagnostic_utils.show_current_error_files, opts)
 -- end
 
 -- return M
