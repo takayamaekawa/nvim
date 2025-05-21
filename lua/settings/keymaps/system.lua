@@ -1,4 +1,4 @@
-local helper = require("settings.keymaps.helper")
+local file_utils = require("utils.file")
 
 local map = vim.api.nvim_set_keymap
 local fmap = vim.keymap.set
@@ -74,7 +74,7 @@ fmap('n', '<Leader>fd', function()
   for _, dir_path in ipairs(dir_list) do
     local abs_dir_path = vim.fn.expand(dir_path)
     local all_files = {}
-    helper.recursive_readdir(abs_dir_path, all_files, exclude_list)
+    file_utils.recursive_readdir(abs_dir_path, all_files, exclude_list)
 
     for _, file_path in ipairs(all_files) do
       local file_ext = string.match(file_path, "%.(%w+)$")
