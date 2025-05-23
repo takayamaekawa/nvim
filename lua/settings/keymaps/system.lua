@@ -7,7 +7,50 @@ local opts = { noremap = true, silent = true }
 local current_time = os.date('%Y-%m-%d %H:%M:%S')
 
 -- system command
-map('n', '<leader>fo', ':!dolphin --select %<CR>', opts)
+local mycmd = ""
+local os_name = vim.loop.os_uname().sysname
+
+
+-- ファイルエクスプローラーで現在のファイルを開く関数
+local function open_in_file_explorer()
+  -- 現在のファイルのフルパスを取得
+  local current_file = vim.fn.expand('%:p')
+
+  -- ファイルが開かれていない場合はエラーメッセージを表示して終了
+  if current_file == '' then
+    vim.notify("開くファイルがありません。", vim.log.levels.WARN)
+    return
+  end
+
+  local command
+
+  -- OSがWindowsかどうかを判定 (vim.fn.has('win32') を使用)
+  if vim.fn.has('win32') == 1 then
+    -- Windowsの場合: explorer.exe を使用
+    -- パスの区切り文字を '/' から '\' に変換
+    local windows_path = vim.fn.substitute(current_file, '/', '\\', 'g')
+    command = 'explorer.exe /select,"' .. windows_path .. '"'
+  else
+    -- Windows以外の場合: dolphin を使用 (指定された通り)
+    -- パスをシェル用にエスケープ
+    command = 'dolphin --select ' .. vim.fn.fnameescape(current_file)
+    -- もし他のファイルマネージャー（Nautilusなど）も考慮する場合は、
+    -- ここに 'else if' を追加できます。
+    --例: elseif vim.fn.executable('nautilus') == 1 then
+    --  command = 'nautilus --select ' .. vim.fn.fnameescape(current_file)
+  end
+
+  -- 組み立てたコマンドを実行
+  -- vim.cmd('!' .. command) は Neovim をブロックしますが、簡単です。
+  -- vim.fn.system(command) は非同期に実行できますが、設定が少し複雑になる場合があります。
+  vim.cmd('!' .. command)
+  -- 外部コマンド実行後に画面を再描画
+  vim.cmd('redraw!')
+end
+
+-- キーマッピングを設定
+-- ノーマルモードで <leader>fo を押すと、上記の関数が実行されます。
+fmap('n', '<leader>fo', open_in_file_explorer, opts)
 
 -- utility
 map('i', 'jj', '<Esc>', opts)
