@@ -6,9 +6,16 @@ local servers_to_ensure = {
 }
 
 require("mason").setup()
+
 require("mason-lspconfig").setup({
   ensure_installed = servers_to_ensure,
   automatic_installation = false,
+})
+
+require("mason-conform").setup({
+  ignore_install = {
+    "prettier",
+  }
 })
 
 require("java").setup()
