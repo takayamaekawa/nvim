@@ -1,11 +1,6 @@
 require("conform").setup({
-  log_level = vim.log.levels.DEBUG,
-  formatters = {
-    php_cs_fixer = {
-      command = "php-cs-fixer",
-      args = { "fix", "$FILENAME", "--using-cache=no" },
-    },
-  },
+  -- log_level = vim.log.levels.DEBUG,
+  -- formatters = {},
   formatters_by_ft = {
     python = { "ruff_fix", "ruff_format", "ruff_organize_imports" },
     sh = { "shfmt" },
@@ -17,7 +12,7 @@ require("conform").setup({
     local ignore_by_external_filetypes = { "php" }
 
     if vim.tbl_contains(ignore_by_external_filetypes, vim.bo[bufnr].filetype) then
-      return { timeout_ms = 2000 } -- 例: 2秒 (2000ミリ秒) に増やす。必要に応じてさらに増やす。
+      return { timeout_ms = 4000 }
     end
 
     if vim.tbl_contains(ignore_filetypes, vim.bo[bufnr].filetype) then
