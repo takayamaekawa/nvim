@@ -5,15 +5,9 @@ require("conform").setup({
     python = { "ruff_fix", "ruff_format", "ruff_organize_imports" },
     sh = { "shfmt" },
     bash = { "shfmt" },
-    php = { "php_cs_fixer" },
   },
   format_on_save = function(bufnr)
     local ignore_filetypes = { "ejs", "html" }
-    local ignore_by_external_filetypes = { "php" }
-
-    if vim.tbl_contains(ignore_by_external_filetypes, vim.bo[bufnr].filetype) then
-      return { timeout_ms = 4000 }
-    end
 
     if vim.tbl_contains(ignore_filetypes, vim.bo[bufnr].filetype) then
       return
