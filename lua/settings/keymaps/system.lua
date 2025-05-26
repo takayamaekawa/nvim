@@ -106,7 +106,8 @@ fmap('n', '<Leader>fd', function()
   local dir_paths = vim.fn.input("Enter the relative path. (e.g., /path/to/project,/path/to/project2): ",
     ".", "file")
   local extensions = vim.fn.input("Enter the included file extensions. (e.g., txt,py,java): ", "*", "file")
-  local exclude_paths = vim.fn.input("Enter the excluded directory path. (e.g., node_modules,venv): ", "", "file")
+  local exclude_paths = vim.fn.input("Enter the excluded directory path. (e.g., node_modules,venv): ",
+    "node_modules,venv,.git", "file")
 
   local dir_list = vim.split(dir_paths, ",")
   local ext_list = vim.split(extensions, ",")
@@ -145,6 +146,6 @@ fmap('n', '<Leader>fd', function()
     vim.fn.setreg('+', clipboard_content)
     vim.notify("Copied the all matched files' relative path and content. (" .. current_time .. ")", "info")
 
-    vim.fn.input("Copied successfully! Press Enter to return.", "")
+    -- vim.fn.input("Copied successfully! Press Enter to return.", "")
   end
 end, opts)
