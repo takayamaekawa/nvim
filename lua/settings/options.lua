@@ -29,6 +29,8 @@ vim.opt.termguicolors = true
 -- vim.opt.winbar = "%m %f" -- モードとファイル名を表示
 -- vim.opt.winbar = "%t %f" -- タブ名とファイル名を表示
 vim.opt.winbar = ""
-vim.opt.laststatus = 0 -- ステータスラインを非表示
+-- vim.opt.laststatus = 0 -- ステータスラインを非表示
+-- views can only be fully collapsed with the global statusline
+vim.opt.laststatus = 3
 vim.opt.statusline = ""
 --vim.opt.showmode = false
