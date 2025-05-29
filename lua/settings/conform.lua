@@ -5,6 +5,7 @@ require("conform").setup({
     python = { "ruff_fix", "ruff_format", "ruff_organize_imports" },
     sh = { "shfmt" },
     bash = { "shfmt" },
+    css = { "prettier" },
   },
   format_on_save = function(bufnr)
     local ignore_filetypes = { "ejs", "html" }

@@ -15,7 +15,7 @@ require("mason-lspconfig").setup({
 
 require("mason-conform").setup({
   ignore_install = {
-    "prettier",
+    -- "prettier",
   }
 })
 
