@@ -1,12 +1,14 @@
 vim.o.number = false
 vim.opt.title = false
-vim.o.ambiwidth = 'double'
 vim.o.tabstop = 2
 vim.o.expandtab = true
 vim.o.shiftwidth = 2
 vim.o.smartindent = true
 vim.o.list = true
 vim.o.listchars = 'tab:»- ,trail:-,eol:↲,extends:»,precedes:«,nbsp:%'
+-- vim.o.listchars = 'tab:>-,trail:-,extends:>,precedes:<,nbsp:+'
+-- vim.o.ambiwidth = 'double'
+vim.o.ambiwidth = 'single'
 vim.o.nrformats = 'hex'
 vim.o.hidden = true
 vim.o.virtualedit = 'block'
