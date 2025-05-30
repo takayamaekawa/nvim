@@ -14,9 +14,6 @@ This is my all neovim settings.
 - Nvim-Version  
 \>\> NVIM v0.10.4
 
-### Personal Policy
-* Go to my [Profile](https://github.com/takayamaekawa#i-dont-use-vscode)
-
 ### CrossOSPlatForm (COP)
 Of course, this is working well at Linux environment, but it can't be guarantee to work completely in other OS.  
 * Probably, Windows is OK.  
