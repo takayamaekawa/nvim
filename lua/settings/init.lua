@@ -12,3 +12,4 @@ require("settings.lsp")
 
 require("settings.overseer")
 require("settings.toggleterm")
+require("settings.copilot")
