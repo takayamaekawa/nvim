@@ -6,5 +6,5 @@ return {
   "user.run_scala_program",
   "user.run_scala_dap",
   "user.run_scala_program_auto",
+  "user.open_terminal_lazygit",
 }
-

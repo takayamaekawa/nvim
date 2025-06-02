@@ -14,6 +14,9 @@ end, opts)
 fmap("n", "<leader>tt", function()
   overseer.run_template({ name = 'Open Toggleterm in Tab' })
 end, opts)
+fmap("n", "<leader>lg", function()
+  overseer.run_template({ name = 'Open Lazygit in Tab' })
+end, opts)
 fmap("n", "<leader>rr", function()
   -- get the file extension
   local filetype = vim.fn.expand('%:e')
@@ -36,7 +39,7 @@ map('n', '<leader>ll', ':Telescope live_grep<CR>', opts)
 map("n", "<leader>nn", '<Cmd>Telescope notify<CR>', opts)
 
 -- SessionManager
-map('n', '<leader>lg', '<Cmd>SessionManager load_git_session<CR>', opts)
+-- map('n', '<leader>lg', '<Cmd>SessionManager load_git_session<CR>', opts)
 map('n', '<leader>ld', '<Cmd>SessionManager load_current_dir_session<CR>', opts)
 fmap('n', '<leader>lsd', function()
   vim.cmd('SessionManager delete_current_dir_session')
@@ -65,3 +68,9 @@ fmap('n', '<bF12>', dap.disconnect, { desc = 'Disconnect' })
 fmap("n", "<leader>dr", dap.repl.toggle, opts)
 
 fmap("n", "<leader>dK", dapui_widget.hover, opts)
+
+-- copilot
+fmap('n', '<C-c>', '<cmd>CopilotChatToggle<cr>', { desc = 'Toggle CopilotChat' })
+fmap('v', '<C-c>', '<cmd>CopilotChatToggle<cr>', { desc = 'Toggle CopilotChat' })
+fmap('n', '<leader>cp', '<cmd>CopilotChatPrompts<cr>', { desc = 'Prompts CopilotChat' })
+fmap('n', '<leader>cm', '<cmd>CopilotChatCommit<cr>', { desc = 'Commit CopilotChat' })

@@ -1,8 +1,8 @@
 return {
-  name = "Open Toggleterm in Tab",
+  name = "Open Lazygit in Tab",
   builder = function()
     return {
-      cmd = { "bash" }, -- 何もしないが、ターミナルを開くためのダミーコマンド
+      cmd = { "lazygit" },
       components = { "default" },
       strategy = {
         "toggleterm",
