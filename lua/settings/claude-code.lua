@@ -32,8 +32,8 @@ require("claude-code").setup({
   -- Keymaps
   keymaps = {
     toggle = {
-      normal = "<C-s>",          -- Normal mode keymap for toggling Claude Code, false to disable
-      terminal = "<C-s>",        -- Terminal mode keymap for toggling Claude Code, false to disable
+      normal = "<C-x>",          -- Normal mode keymap for toggling Claude Code, false to disable
+      terminal = false,          -- Terminal mode keymap for toggling Claude Code, false to disable
       variants = {
         continue = "<leader>cC", -- Normal mode keymap for Claude Code with continue flag
         verbose = "<leader>cV",  -- Normal mode keymap for Claude Code with verbose flag
