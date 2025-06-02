@@ -1,15 +1,8 @@
 local M = {}
 
-local mycmd = ""
-local os_name = vim.loop.os_uname().sysname
+local nvim_shell = vim.o.shell
 
-if os_name == "Windows_NT" then
-  mycmd = "pwsh"
-else
-  mycmd = "bash"
-end
-
-M.float_terminal = require('toggleterm.terminal').Terminal:new({ cmd = mycmd, direction = "float" })
+M.float_terminal = require('toggleterm.terminal').Terminal:new({ cmd = nvim_shell, direction = "float" })
 
 require('toggleterm').setup({
   size = 100,
@@ -33,4 +26,3 @@ end
 vim.keymap.set("n", "<c-t>", M.toggle_float_terminal)
 
 return M
-
