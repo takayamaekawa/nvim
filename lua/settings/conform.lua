@@ -2,10 +2,16 @@ require("conform").setup({
   -- log_level = vim.log.levels.DEBUG,
   -- formatters = {},
   formatters_by_ft = {
+    javascript = { "biome" },
+    typescript = { "biome" },
+    javascriptreact = { "biome" },
+    typescriptreact = { "biome" },
+    json = { "biome" },
+    jsonc = { "biome" },
+    css = { "biome" }, -- prettierでもOK
     python = { "ruff_fix", "ruff_format", "ruff_organize_imports" },
     sh = { "shfmt" },
     bash = { "shfmt" },
-    css = { "prettier" },
   },
   format_on_save = function(bufnr)
     local ignore_filetypes = { "ejs", "html" }
