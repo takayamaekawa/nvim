@@ -7,8 +7,11 @@ return {
     -- (WSLを検出したいときは、WSL_DISTRO_NAME環境変数をチェックする)
     -- os.getenv('WSL_DISTRO_NAME') ~= nil
     if vim.fn.has('win32') == 1 or vim.fn.has('win64') == 1 then
-      -- Windowsの名前付きパイプの存在を確認して終了
-      return vim.fn.filereadable('//./pipe/discord-ipc-0') == 1
+      local pipe_path = '//./pipe/discord-ipc-0'
+      local is_readable = vim.fn.filereadable(pipe_path)
+      -- デバッグ用のメッセージを出力
+      print("Checking Discord pipe. Path: " .. pipe_path .. ", Readable: " .. tostring(is_readable))
+      return is_readable == 1
     end
 
     -- 条件2: 環境がLinuxまたはmacOSの場合
