@@ -4,7 +4,9 @@ return {
 
   cond = function()
     -- 条件1: 環境がWindowsネイティブまたはWSLの場合
-    if vim.fn.has('win32') == 1 or vim.fn.has('win64') == 1 or os.getenv('WSL_DISTRO_NAME') ~= nil then
+    -- (WSLを検出したいときは、WSL_DISTRO_NAME環境変数をチェックする)
+    -- os.getenv('WSL_DISTRO_NAME') ~= nil
+    if vim.fn.has('win32') == 1 or vim.fn.has('win64') == 1 then
       -- Windowsの名前付きパイプの存在を確認して終了
       return vim.fn.filereadable('//./pipe/discord-ipc-0') == 1
     end
