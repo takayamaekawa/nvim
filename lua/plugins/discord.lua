@@ -3,8 +3,10 @@ return {
   -- build = ':Cord update',
 
   cond = function()
-    -- 条件1: 環境がWindowsネイティブまたはWSLの場合
-    if vim.fn.has('win32') == 1 or vim.fn.has('win64') == 1 or os.getenv('WSL_DISTRO_NAME') ~= nil then
+    -- 条件1: 環境がWindowsネイティブの場合
+    -- (WSLの場合は、socatコマンドによるnpiperelay.exeにより、パイプファイルをリレーするため、ここでは除外する
+    -- WSL環境を検出するには: os.getenv('WSL_DISTRO_NAME') ~= nil)
+    if vim.fn.has('win32') == 1 or vim.fn.has('win64') == 1 then
       -- discord-ipc-0 から 9 までを順番に検索
       for i = 0, 9 do
         local pipe_path = '//./pipe/discord-ipc-' .. i
