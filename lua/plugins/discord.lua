@@ -1,42 +1,36 @@
 return {
   'vyfor/cord.nvim',
-  -- build = ':Cord update', -- buildは初回のみでOK
+  -- build = ':Cord update',
 
   cond = function()
     -- 条件1: 環境がWindowsネイティブまたはWSLの場合
-    -- (WSLを検出したいときは、WSL_DISTRO_NAME環境変数をチェックする)
-    -- os.getenv('WSL_DISTRO_NAME') ~= nil
-    if vim.fn.has('win32') == 1 or vim.fn.has('win64') == 1 then
-      local pipe_path = '//./pipe/discord-ipc-0'
-      local is_readable = vim.fn.filereadable(pipe_path)
-      -- デバッグ用のメッセージを出力
-      print("Checking Discord pipe. Path: " .. pipe_path .. ", Readable: " .. tostring(is_readable))
-      return is_readable == 1
+    if vim.fn.has('win32') == 1 or vim.fn.has('win64') == 1 or os.getenv('WSL_DISTRO_NAME') ~= nil then
+      -- discord-ipc-0 から 9 までを順番に検索
+      for i = 0, 9 do
+        local pipe_path = '//./pipe/discord-ipc-' .. i
+
+        -- 【変更点】filereadable() から glob()での存在チェックに変更
+        if vim.fn.empty(vim.fn.glob(pipe_path)) == 0 then
+          -- print("Found Discord pipe on Windows/WSL: " .. pipe_path) -- デバッグしたい場合はこの行を有効化
+          return true -- 発見したら、その時点でtrueを返す
+        end
+      end
+      -- 0から9まで見つからなかった場合
+      return false
     end
 
     -- 条件2: 環境がLinuxまたはmacOSの場合
-    -- discord-ipc-0 から discord-ipc-9 までを順番に検索する
     for i = 0, 9 do
       local suffix = 'discord-ipc-' .. i
       local xdg_runtime_dir = os.getenv('XDG_RUNTIME_DIR')
-
-      -- 検索するパスのリスト（優先順位順）
       local potential_paths = {
-        -- Flatpak版Discordのパス
         xdg_runtime_dir and (xdg_runtime_dir .. '/app/com.discordapp.Discord/' .. suffix),
-        -- 標準的なXDGパス
         xdg_runtime_dir and (xdg_runtime_dir .. '/' .. suffix),
-        -- フォールバック用の/tmpパス
         '/tmp/' .. suffix,
       }
-
-      -- 各パスの存在をチェック
       for _, path in ipairs(potential_paths) do
-        if path then
-          -- filereadable()はソケットに機能しないことがあるため、glob()で存在確認するのが確実
-          if vim.fn.empty(vim.fn.glob(path)) == 0 then
-            return true -- 発見したら、その時点でtrueを返して終了
-          end
+        if path and vim.fn.empty(vim.fn.glob(path)) == 0 then
+          return true
         end
       end
     end
