@@ -23,6 +23,4 @@ function M.toggle_float_terminal()
   M.float_terminal:toggle()
 end
 
-vim.keymap.set("n", "<c-t>", M.toggle_float_terminal)
-
 return M

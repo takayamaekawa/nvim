@@ -6,6 +6,7 @@ local dap, dapui = require("dap"), require("dapui")
 local dapui_widget = require("dap.ui.widgets")
 
 local overseer = require('overseer')
+local toggleterm_settings = require('settings.toggleterm')
 
 -- Overseer
 fmap("n", "<leader>ss", function()
@@ -16,6 +17,9 @@ fmap("n", "<leader>tt", function()
 end, opts)
 fmap("n", "<leader>lg", function()
   overseer.run_template({ name = 'Open Lazygit in Tab' })
+end, opts)
+fmap("n", "<leader>gm", function()
+  overseer.run_template({ name = 'Open Gemini in Tab' })
 end, opts)
 fmap("n", "<leader>rr", function()
   -- get the file extension
@@ -74,3 +78,8 @@ fmap('n', '<C-c>', '<cmd>CopilotChatToggle<cr>', { desc = 'Toggle CopilotChat' }
 fmap('v', '<C-c>', '<cmd>CopilotChatToggle<cr>', { desc = 'Toggle CopilotChat' })
 fmap('n', '<leader>cp', '<cmd>CopilotChatPrompts<cr>', { desc = 'Prompts CopilotChat' })
 fmap('n', '<leader>cm', '<cmd>CopilotChatCommit<cr>', { desc = 'Commit CopilotChat' })
+
+-- toggleterm
+fmap("n", "<c-t>", toggleterm_settings.toggle_float_terminal)
+fmap("v", "<c-t>", toggleterm_settings.toggle_float_terminal)
+fmap("t", "<c-t>", toggleterm_settings.toggle_float_terminal)

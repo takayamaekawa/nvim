@@ -11,6 +11,5 @@ require("settings.git")
 require("settings.lsp")
 
 require("settings.overseer")
-require("settings.toggleterm")
 require("settings.copilot")
 require("settings.claude-code")
