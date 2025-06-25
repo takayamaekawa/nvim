@@ -8,4 +8,5 @@ return {
   "user.run_scala_program_auto",
   "user.open_terminal_lazygit",
   "user.open_terminal_gemini",
+  "user.run_gemini_web_search_program",
 }
