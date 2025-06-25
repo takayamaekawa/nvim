@@ -9,4 +9,5 @@ return {
   "user.open_terminal_lazygit",
   "user.open_terminal_gemini",
   "user.run_gemini_web_search_program",
+  "user.open_terminal_claude",
 }
