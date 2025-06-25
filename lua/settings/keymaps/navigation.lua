@@ -12,6 +12,7 @@ map('n', '<C-H>', '<Cmd>BufferMovePrevious<CR>', opts)
 map('n', '<C-L>', '<Cmd>BufferMoveNext<CR>', opts)
 -- close
 map('n', '<leader>ww', '<Cmd>BufferClose<CR>', opts)
+map('n', '<leader>wc', '<Cmd>close<CR>', opts)
 fmap('n', '<C-\\><C-_>', function() vim.cmd("tabnext") end, opts)
 fmap('t', '<C-\\><C-_>', function() vim.cmd("tabnext") end, opts)
 fmap('n', '<C-\\><C-\\>', function() vim.cmd("tabprevious") end, opts)
