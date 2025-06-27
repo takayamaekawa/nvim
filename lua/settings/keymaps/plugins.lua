@@ -89,3 +89,9 @@ fmap('n', '<leader>cm', '<cmd>CopilotChatCommit<cr>', { desc = 'Commit CopilotCh
 fmap("n", "<c-t>", toggleterm_settings.toggle_float_terminal)
 fmap("v", "<c-t>", toggleterm_settings.toggle_float_terminal)
 fmap("t", "<c-t>", toggleterm_settings.toggle_float_terminal)
+
+-- git
+fmap('n', '<leader>mg', '<cmd>ModeGit<CR>', {
+  silent = true,
+  desc = '[M]ode [G]it: Start hunk navigation'
+})

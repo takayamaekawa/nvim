@@ -20,11 +20,11 @@ local function start_diagnostic_listener()
       listen() -- 次の入力を待つために自分自身を呼び出す
     elseif key == 'N' then
       vim.diagnostic.goto_prev()
-      listen()                                -- 次の入力を待つ
-    elseif key == 'q' or char_code == 27 then -- 'q'キー または Escキー(ASCIIコード 27)
+      listen()                                                    -- 次の入力を待つ
+    elseif key == 'q' or char_code == 27 or char_code == 13 then  -- 'q'キー または Escキー(ASCIIコード 27)
       print("Exited diagnostic navigation mode.")
-      vim.cmd('redraw')                       -- コマンドラインのメッセージをクリア
-      return                                  -- ループを終了
+      vim.cmd('redraw')                                           -- コマンドラインのメッセージをクリア
+      return                                                      -- ループを終了
     else
       -- n, N, q, Esc 以外のキーが押された場合は、モードを継続して次の入力を待つ
       listen()

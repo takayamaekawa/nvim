@@ -1,4 +1,5 @@
 require("settings.commands.mode-error")
+require("settings.commands.mode-git")
 
 local userCommand = vim.api.nvim_create_user_command
 local autoCommand = vim.api.nvim_create_autocmd
