@@ -77,8 +77,9 @@ fmap("n", "<leader>cw", diagnostic_utils.show_current_error_files, opts)
 
 -- mode error
 fmap('n', '<leader>me', '<cmd>ModeError<CR>', {
+  noremap = true,
+  silent = true,
   desc = '[M]ode [E]rror: Start diagnostic navigation',
-  opts
 })
 
 -- return M
