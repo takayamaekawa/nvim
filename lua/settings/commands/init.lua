@@ -1,3 +1,5 @@
+require("settings.commands.mode-error")
+
 local userCommand = vim.api.nvim_create_user_command
 local autoCommand = vim.api.nvim_create_autocmd
 

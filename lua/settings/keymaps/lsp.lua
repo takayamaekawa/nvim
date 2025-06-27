@@ -19,7 +19,8 @@ fmap("n", "<leader>fh",
 
 -- すべての診断をコピー (重要度プレフィックス付き)
 fmap("n", "<leader>fa", function()
-  diagnostic_utils.copy_diagnostics_to_clipboard(nil, true) end, opts)
+  diagnostic_utils.copy_diagnostics_to_clipboard(nil, true)
+end, opts)
 
 -- these are added from nvim-metals: https://github.com/scalameta/nvim-metals/discussions/39
 fmap("n", "<leader>cl", function() vim.lsp.codelens.run({}) end)
@@ -73,5 +74,11 @@ fmap("n", "gr", vim.lsp.buf.references, opts)
 fmap("n", "<leader>ce", diagnostic_utils.show_error_files, opts)
 fmap("n", "<leader>cw", diagnostic_utils.show_current_error_files, opts)
 -- end
+
+-- mode error
+fmap('n', '<leader>me', '<cmd>ModeError<CR>', {
+  desc = '[M]ode [E]rror: Start diagnostic navigation',
+  opts
+})
 
 -- return M
