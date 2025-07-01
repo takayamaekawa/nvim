@@ -3,6 +3,12 @@ return {
   -- build = ':Cord update',
 
   cond = function()
+    -- WSL環境では完全に無効化（エラー通知を回避）
+    if os.getenv('WSL_DISTRO_NAME') then
+      -- WSL-DistroがWindowsでDiscordが起動しているかを判断する術を知らないため、一時的に
+      return false
+    end
+
     -- 条件1: 環境がWindowsネイティブの場合
     -- (WSLの場合は、socatコマンドによるnpiperelay.exeにより、パイプファイルをリレーするため、ここでは除外する
     -- WSL環境を検出するには: os.getenv('WSL_DISTRO_NAME') ~= nil)
@@ -43,5 +49,6 @@ return {
 
   opts = {
     -- ここにcord.nvimの通常の設定を記述
+    log_level = 'off', -- ログを完全に無効化
   }
 }
