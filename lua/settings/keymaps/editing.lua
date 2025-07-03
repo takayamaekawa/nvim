@@ -38,3 +38,22 @@ for i = 1, 8 do
     set_tabstop(i)
   end, opts)
 end
+
+-- dos2unix
+fmap('n', '<leader>du', function()
+  local filename = vim.fn.expand('%')
+  if filename == '' then
+    print('No file is currently open')
+    return
+  end
+
+  -- ファイルが変更されている場合は保存
+  if vim.bo.modified then
+    vim.cmd('write')
+  end
+
+  -- dos2unix実行
+  vim.cmd('silent !dos2unix ' .. vim.fn.shellescape(filename))
+  vim.cmd('edit!')
+  print('dos2unix executed on: ' .. filename)
+end, { desc = 'Run dos2unix on current file' })
