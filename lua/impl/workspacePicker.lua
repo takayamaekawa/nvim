@@ -73,7 +73,7 @@ function M.show_workspaces()
       results = workspaces,
       entry_maker = function(entry)
         local display_text = string.format(
-          '%s - %s (%s)',
+          '%s - %s',
           entry.name,
           entry.comment or 'No comment'
         )
