@@ -1,6 +1,6 @@
 local M = {}
 
-local nvim_shell = vim.fn.has('win32') == 1 and 'powershell' or vim.o.shell
+local nvim_shell = vim.fn.has('win32') == 1 and 'pwsh' or vim.o.shell
 
 M.float_terminal = require('toggleterm.terminal').Terminal:new({ cmd = nvim_shell, direction = "float" })
 
