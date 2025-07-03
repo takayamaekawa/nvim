@@ -54,6 +54,7 @@ fmap('n', '<leader>oy', '<Cmd>ObsidianYesterday<CR>', opts)   -- 昨日のノー
 fmap('n', '<leader>ot', '<Cmd>ObsidianTomorrow<CR>', opts)    -- 明日のノート
 
 fmap('n', '<leader>ow', '<Cmd>ObsidianWorkspace<CR>', opts)
+fmap('n', '<leader>og', '<Cmd>ObsidianBridgeOpenGraph<CR>', opts) -- グラフ表示
 
 -- workspace
 fmap('n', '<leader>pp', function() workspace_picker.show_workspaces() end, opts) -- ワークスペースピッカー
