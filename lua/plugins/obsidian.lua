@@ -29,36 +29,39 @@ return {
 
       -- see below for full list of optional dependencies 👇
     },
-    opts = {
-      workspaces = {
-        {
-          name = "personal",
-          path = "~/vaults/personal",
-        },
-        {
-          name = "work",
-          path = "~/vaults/work",
-        },
-        {
-          name = "win",
-          path = "/mnt/c/Users/tk/Documents/ObsidianVault"
-        }
-      },
-      -- telescope連携を追加
-      picker = {
-        name = "telescope.nvim",
-        mappings = {
-          new = "<C-x>",
-          insert_link = "<C-l>",
-        },
-      },
+    opts = function()
+      local config_path = vim.fn.stdpath('config') .. '/plugins.json'
+      local workspaces = {}
 
-      -- 補完設定
-      completion = {
-        nvim_cmp = true,
-        min_chars = 2,
-      },
-      -- see below for full list of options 👇
-    },
+      local file = io.open(config_path, 'r')
+      if file then
+        local content = file:read('*all')
+        file:close()
+
+        local ok, config = pcall(vim.json.decode, content)
+        if ok and config.plugins and config.plugins.obsidian and config.plugins.obsidian.workspaces then
+          workspaces = config.plugins.obsidian.workspaces
+        end
+      end
+
+      return {
+        workspaces = workspaces,
+        -- telescope連携を追加
+        picker = {
+          name = "telescope.nvim",
+          mappings = {
+            new = "<C-x>",
+            insert_link = "<C-l>",
+          },
+        },
+
+        -- 補完設定
+        completion = {
+          nvim_cmp = true,
+          min_chars = 2,
+        },
+        -- see below for full list of options 👇
+      }
+    end,
   }
 }
