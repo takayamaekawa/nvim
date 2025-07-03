@@ -2,6 +2,8 @@ local map = vim.api.nvim_set_keymap
 local fmap = vim.keymap.set
 local opts = { noremap = true, silent = true }
 
+local workspace_picker = require('impl.workspacePicker')
+
 -- buffer
 -- move to the previous/next one
 map('n', '<C-j>', '<Cmd>BufferPrevious<CR>', opts)
@@ -36,3 +38,22 @@ fmap('n', '<A-Right>', '<C-w>l')
 -- tab
 -- <leader>tc: close the current tab
 fmap('n', '<leader>tc', function() vim.cmd("tabclose") end, opts)
+
+-- obsidian
+fmap('n', '<leader>on', '<Cmd>ObsidianNew<CR>', opts)         -- 新しいノート作成
+fmap('n', '<leader>os', '<Cmd>ObsidianSearch<CR>', opts)      -- ノート検索
+fmap('n', '<leader>oq', '<Cmd>ObsidianQuickSwitch<CR>', opts) -- クイックスイッチ
+fmap('n', '<leader>of', '<Cmd>ObsidianFollowLink<CR>', opts)  -- リンクをフォロー
+fmap('n', '<leader>ob', '<Cmd>ObsidianBacklinks<CR>', opts)   -- バックリンク表示
+fmap('n', '<leader>ot', '<Cmd>ObsidianTags<CR>', opts)        -- タグ検索
+fmap('n', '<leader>oo', '<Cmd>ObsidianOpen<CR>', opts)        -- Obsidianアプリで開く
+fmap('n', '<leader>ol', '<Cmd>ObsidianLinkNew<CR>', opts)     -- 新しいリンク作成
+fmap('n', '<leader>or', '<Cmd>ObsidianRename<CR>', opts)      -- ノート名変更
+fmap('n', '<leader>od', '<Cmd>ObsidianToday<CR>', opts)       -- 今日のノート
+fmap('n', '<leader>oy', '<Cmd>ObsidianYesterday<CR>', opts)   -- 昨日のノート
+fmap('n', '<leader>ot', '<Cmd>ObsidianTomorrow<CR>', opts)    -- 明日のノート
+
+fmap('n', '<leader>ow', '<Cmd>ObsidianWorkspace<CR>', opts)
+
+-- workspace
+fmap('n', '<leader>pp', function() workspace_picker.show_workspaces() end, opts) -- ワークスペースピッカー

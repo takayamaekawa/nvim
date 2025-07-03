@@ -36,3 +36,4 @@ vim.opt.winbar = ""
 vim.opt.laststatus = 3
 vim.opt.statusline = ""
 --vim.opt.showmode = false
+vim.opt.conceallevel = 2

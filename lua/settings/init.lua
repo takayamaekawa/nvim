@@ -12,4 +12,4 @@ require("settings.lsp")
 
 require("settings.overseer")
 require("settings.copilot")
-require("settings.claude-code")
+-- require("settings.claude-code")
