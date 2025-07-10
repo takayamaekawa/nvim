@@ -12,6 +12,15 @@ require("conform").setup({
     python = { "ruff_fix", "ruff_format", "ruff_organize_imports" },
     sh = { "shfmt" },
     bash = { "shfmt" },
+    yml = { "prettier", "remove_blank_lines" },
+    yaml = { "prettier", "remove_blank_lines" },
+  },
+  formatters = {
+    remove_blank_lines = {
+      command = "sed",
+      args = { "s/^\\s*$//" },
+      stdin = true,
+    },
   },
   format_on_save = function(bufnr)
     local ignore_filetypes = { "ejs", "html" }
