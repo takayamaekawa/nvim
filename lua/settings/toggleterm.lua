@@ -1,8 +1,18 @@
 local M = {}
 
-local nvim_shell = vim.fn.has('win32') == 1 and 'pwsh' or vim.o.shell
+local nvim_shell, shell_args
+if vim.fn.has('win32') == 1 then
+  nvim_shell = 'pwsh'
+  shell_args = { '-NoLogo' }
+else
+  nvim_shell = vim.o.shell
+  shell_args = {}
+end
 
-M.float_terminal = require('toggleterm.terminal').Terminal:new({ cmd = nvim_shell, direction = "float" })
+M.float_terminal = require('toggleterm.terminal').Terminal:new({
+  cmd = nvim_shell .. (shell_args[1] and (" " .. shell_args[1]) or ""),
+  direction = "float"
+})
 
 require('toggleterm').setup({
   size = 100,
