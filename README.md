@@ -121,6 +121,10 @@ Install: [lua/plugins/lualine.lua](lua/plugins.lualine.lua)
   
 Setting: [lua/settings/lualine.lua](lua/settings/lualine.lua)
 
+## Vim Configuration
+
+You can also configure Vim to work as close as possible to this Neovim setup! For more details, see [README_vim.md](README_vim.md).
+
 ## Comment
 I'm glowing up with Neovim, which is for only myself.  
 Wanna be a Vimmer?
