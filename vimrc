@@ -1,7 +1,7 @@
 " Vim configuration with plugins - Port from Neovim
 " This configuration includes LSP, formatters, and file manager
 
-" WSL configuration
+" Clipboard configuration
 if exists('$WSL_DISTRO_NAME') || (has('win32') || has('win64'))
   " WSL clipboard configuration for Vim
   set clipboard=unnamed
@@ -33,7 +33,40 @@ if exists('$WSL_DISTRO_NAME') || (has('win32') || has('win64'))
   if exists('&belloff')
     set belloff=all
   endif
+elseif exists('$SSH_CLIENT') || exists('$SSH_TTY') || exists('$SSH_CONNECTION')
+  " SSH/Remote clipboard configuration using OSC 52
+  set clipboard=unnamed
+
+  " OSC 52 clipboard functions
+  function! OSC52Copy(text)
+    let encoded = substitute(system('base64 -w 0', a:text), '\n', '', 'g')
+    let osc52 = printf('\e]52;c;%s\a', encoded)
+    silent! call writefile([osc52], '/dev/tty', 'b')
+  endfunction
+
+  function! OSC52Paste()
+    " OSC 52 doesn't support paste, so we just use the normal register
+    return '""p'
+  endfunction
+
+  " Auto-sync yank to OSC 52
+  augroup OSC52Yank
+    au!
+    autocmd TextYankPost * call OSC52Copy(@")
+  augroup END
+
+  " OSC 52 paste (fallback to normal register)
+  nnoremap <expr> p OSC52Paste()
+
+  " Manual OSC 52 copy command
+  command! -range OSC52CopyRange call OSC52Copy(join(getline(<line1>, <line2>), "\n"))
+
+  " Disable bell sounds
+  if exists('&belloff')
+    set belloff=all
+  endif
 else
+  " Standard clipboard configuration
   set clipboard=unnamedplus
 endif
 
