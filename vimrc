@@ -74,21 +74,54 @@ set nocompatible
 filetype off
 
 " vim-plug setup
-" Auto-install vim-plug if not found
-if empty(glob('~/.vim/autoload/plug.vim'))
-  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
-    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-  autocmd VimEnter * PlugInstall --sync | if !empty($MYVIMRC) | source $MYVIMRC | endif
+" Debug mode setting (set to 0 to disable all debug output)
+let g:vim_debug = 0
+
+" Logging function for debugging
+function! LogMessage(msg)
+  if g:vim_debug
+    let timestamp = strftime("%Y-%m-%d %H:%M:%S")
+    let logfile = "./vim_startup.log"
+    call writefile([timestamp . " - " . a:msg], logfile, "a")
+    echom a:msg
+  endif
+endfunction
+
+" vim-plug installation check (simplified, no logging)
+if has('win32') || has('win64')
+  let g:vim_plug_path = expand('~/.vim/autoload/plug.vim')
+  
+  if empty(glob(g:vim_plug_path))
+    " Create directory and download vim-plug
+    let vim_autoload_dir = expand('~/.vim/autoload')
+    call mkdir(vim_autoload_dir, 'p')
+    
+    let download_url = "https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
+    let target_file = vim_autoload_dir . "/plug.vim"
+    let ps_cmd = 'powershell -Command "Invoke-WebRequest -Uri ''' . download_url . ''' -OutFile ''' . target_file . ''' -UseBasicParsing"'
+    silent! call system(ps_cmd)
+  endif
+else
+  " Auto-install vim-plug if not found (Linux/Mac)
+  if empty(glob('~/.vim/autoload/plug.vim'))
+    silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+      \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+    autocmd VimEnter * PlugInstall --sync | if !empty($MYVIMRC) | source $MYVIMRC | endif
+  endif
 endif
 
-" Auto-install missing plugins
-autocmd VimEnter * if exists('g:plugs') && len(filter(values(g:plugs), '!isdirectory(v:val.dir)'))
-  \| PlugInstall --sync | if !empty($MYVIMRC) | source $MYVIMRC | endif
-\| endif
-
-" Plugin setup
-if !empty(glob('~/.vim/autoload/plug.vim')) || !empty(glob('~/.vim/autoload/plug.vim'))
-  call plug#begin('~/.vim/plugged')
+" Plugin setup (simplified)
+if !empty(glob('~/.vim/autoload/plug.vim'))
+  " Source vim-plug if needed
+  if !exists('*plug#begin')
+    silent! execute 'source ' . expand('~/.vim/autoload/plug.vim')
+  endif
+  
+  " Start plugin setup
+  if exists('*plug#begin')
+    call plug#begin('~/.vim/plugged')
+  endif
+endif
 
   " LSP and completion
   Plug 'dense-analysis/ale'                    " LSP and linting
@@ -137,8 +170,18 @@ if !empty(glob('~/.vim/autoload/plug.vim')) || !empty(glob('~/.vim/autoload/plug
     Plug 'voldikss/vim-floaterm'              " Floating terminal
   endif
 
-  call plug#end()
-endif
+  " End plugin setup
+  if exists('*plug#end')
+    call plug#end()
+    
+    " Auto-install missing plugins
+    if exists('g:plugs')
+      let missing_plugins = filter(values(g:plugs), '!isdirectory(v:val.dir)')
+      if len(missing_plugins) > 0
+        autocmd VimEnter * PlugInstall --sync | if !empty($MYVIMRC) | source $MYVIMRC | endif
+      endif
+    endif
+  endif
 
 
 " Enable filetype plugins
