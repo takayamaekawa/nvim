@@ -4,9 +4,10 @@ This guide covers how to use Neovim configurations with Vim, providing configura
 
 ## Available Configurations
 
-This repository includes two Vim configuration files:
+This repository includes three Vim configuration files:
 
-- `vimrc` - Full-featured version with plugins (recommended)
+- `vimrc` - Simple configuration that sources external vimrc (recommended for most users)
+- `vim-with-plugins.vimrc` - Full-featured version with plugins
 - `vim-minimal.vimrc` - Lightweight minimal version
 
 ## 🚀 Quick Start
@@ -18,11 +19,21 @@ This repository includes two Vim configuration files:
 cp vim-minimal.vimrc ~/.vimrc
 ```
 
-### 2. Full Configuration with Plugins (Recommended)
+### 2. Source-based Configuration (Recommended)
 
 ```bash
-# Copy the full configuration
+# Copy the source-based configuration
 cp vimrc ~/.vimrc
+
+# This will automatically source vim-with-plugins.vimrc
+vim
+```
+
+### 3. Full Configuration with Plugins
+
+```bash
+# Copy the full configuration directly
+cp vim-with-plugins.vimrc ~/.vimrc
 
 # Start Vim and install plugins
 vim
@@ -38,7 +49,7 @@ vim
 - **Custom Key Mappings** - Intuitive shortcuts for common operations
 - **Japanese Support** - Full-width character support (`ambiwidth=double`)
 
-### Plugin Features (vimrc only)
+### Plugin Features (vim-with-plugins.vimrc only)
 - **🔧 LSP Support** - Language Server Protocol via ALE
 - **📁 File Manager** - NERDTree with Git integration
 - **🔍 Fuzzy Finder** - FZF for fast file searching
@@ -72,7 +83,7 @@ vim
 | `y` | Copy to Windows clipboard |
 | `p` | Paste from Windows clipboard |
 
-### Plugin-Specific (vimrc only)
+### Plugin-Specific (vim-with-plugins.vimrc only)
 
 #### File Manager
 | Key | Action |
@@ -126,7 +137,7 @@ vim
 
 ## 🛠️ Installation & Setup
 
-### Plugin Installation (vimrc)
+### Plugin Installation (vim-with-plugins.vimrc)
 
 1. **Install vim-plug** (automated)
    ```bash
@@ -173,7 +184,7 @@ sudo mv /tmp/win32yank.exe /usr/local/bin/
 
 ## 🔧 Supported Languages
 
-### LSP Support (vimrc)
+### LSP Support (vim-with-plugins.vimrc)
 - JavaScript/TypeScript
 - Python
 - Rust
@@ -310,9 +321,9 @@ nnoremap <C-o> :NERDTreeToggle<CR>
 
 ## 🔗 Related Files
 
-- `vimrc` - Full-featured configuration with plugins
-- `vim-minimal.vimrc` - Lightweight minimal configuration  
-- `vim-current.vimrc` - Current working configuration
+- `vimrc` - Simple configuration that sources external vimrc
+- `vim-with-plugins.vimrc` - Full-featured configuration with plugins
+- `vim-minimal.vimrc` - Lightweight minimal configuration
 
 ---
 
