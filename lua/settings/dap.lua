@@ -2,6 +2,7 @@ local dap, dapui = require("dap"), require("dapui")
 local install_root_dir = vim.fn.stdpath("data") .. "/mason"
 local extension_path = install_root_dir .. "/packages/codelldb/extension/"
 local codelldb_path = extension_path .. "adapter/codelldb"
+local config = require("configHandler").get
 
 dap.adapters.java = function(callback)
   -- Java Debug Server のポートを指定
@@ -12,14 +13,13 @@ dap.adapters.java = function(callback)
   })
 end
 
-local classpaths = {
-  "/home/bella/git/kishax/common/build/classes/java/main",
-  "/home/bella/git/kishax/fabric/favcore/build/classes/java/main",
-  "/home/bella/git/kishax/forge/fovcore/build/classes/java/main",
-  "/home/bella/git/kishax/neoforge/neofovcore/build/classes/java/main",
-  "/home/bella/git/kishax/spigot/svcore/build/classes/java/main",
-  "/home/bella/git/kishax/velocity/build/classes/java/main",
-}
+local classpaths = {}
+-- もし、configがあれば、classpathsに追加
+if config and config.self and config.self.java and config.self.java.classpaths then
+  for _, path in ipairs(config.self.java.classpaths) do
+    table.insert(classpaths, path)
+  end
+end
 
 dap.configurations.java = {
   {

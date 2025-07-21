@@ -4,38 +4,10 @@ local finders = require('telescope.finders')
 local conf = require('telescope.config').values
 local actions = require('telescope.actions')
 local action_state = require('telescope.actions.state')
+local config = require("configHandler").get
 
 local M = {}
 
--- プロジェクト情報を読み込む関数
-local function load_workspaces()
-  local config_path = vim.fn.stdpath('config') .. '/workspaces.json'
-
-  -- ファイルが存在しない場合
-  if vim.fn.filereadable(config_path) == 0 then
-    vim.notify('workspaces.json not found at: ' .. config_path, vim.log.levels.ERROR)
-    return {}
-  end
-
-  -- JSONファイルを読み込み
-  local file = io.open(config_path, 'r')
-  if not file then
-    vim.notify('Failed to open workspaces.json', vim.log.levels.ERROR)
-    return {}
-  end
-
-  local content = file:read('*all')
-  file:close()
-
-  -- JSONをパース
-  local ok, workspaces_data = pcall(vim.json.decode, content)
-  if not ok then
-    vim.notify('Failed to parse workspaces.json', vim.log.levels.ERROR)
-    return {}
-  end
-
-  return workspaces_data.workspaces or {}
-end
 
 -- プロジェクト選択後のアクション
 local function select_workspaces(prompt_bufnr)
@@ -60,7 +32,12 @@ end
 
 -- telescope pickerを作成
 function M.show_workspaces()
-  local workspaces = load_workspaces()
+  if not config or not config.self or not config.self.workspaces then
+    vim.notify('No workspaces configured', vim.log.levels.ERROR)
+    return
+  end
+
+  local workspaces = config.self.workspaces or {}
 
   if #workspaces == 0 then
     vim.notify('No workspaces found', vim.log.levels.WARN)

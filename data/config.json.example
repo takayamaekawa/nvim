@@ -1,0 +1,31 @@
+{
+  "plugins": {
+    "obsidian": {
+      "workspaces": [
+        {
+          "name": "exampleWorkspace1",
+          "path": "/path/to/example1"
+        },
+        {
+          "name": "exampleWorkspace2",
+          "path": "/path/to/example2"
+        }
+      ]
+    },
+  },
+  "self": {
+    "debug": false,
+    "workspaces": [
+      {
+        "name": "ExampleWorkspace1",
+        "path": "/path/to/workspace1",
+        "comment": "Description of Workspace 1"
+      },
+      {
+        "name": "ExampleWorkspace2",
+        "path": "/path/to/workspace2",
+        "comment": "Description of Workspace 2"
+      }
+    ]
+  }
+}

@@ -1,11 +1,8 @@
 /lsp/
 lazy-lock.json
-workspaces.json
-plugins.json
-
 # vim-plug and related files
 ~/.vim/
 ~/
 vim_startup.log
 nul
-
+data/config.json

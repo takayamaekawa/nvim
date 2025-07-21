@@ -59,23 +59,24 @@ return {
       "nvim-lua/plenary.nvim",
     },
     opts = function()
-      local config_path = vim.fn.stdpath('config') .. '/plugins.json'
-      local workspaces = {
-        {
-          name = "personal",
-          path = "~/vaults/personal",
-        },
-      }
-
-      -- plugins.jsonから設定を読み込み
-      local file = io.open(config_path, 'r')
-      if file then
-        local content = file:read('*all')
-        file:close()
-        local ok, config = pcall(vim.json.decode, content)
-        if ok and config.plugins and config.plugins.obsidian and config.plugins.obsidian.workspaces then
-          workspaces = config.plugins.obsidian.workspaces
+      local config = require("configHandler").get
+      local workspaces = {}
+      -- もし、config.plugins.obsidian.workspacesがあればそれを足す。
+      -- もしなければ、空のworkspacesを使用
+      if config and config.plugins and config.plugins.obsidian and config.plugins.obsidian.workspaces then
+        for _, workspace in ipairs(config.plugins.obsidian.workspaces) do
+          table.insert(workspaces, {
+            name = workspace.name,
+            path = workspace.path,
+          })
         end
+      else
+        -- デフォルトのワークスペースを設定
+        -- table.insert(workspaces, {
+        --   name = "Default Workspace",
+        --   path = vim.fn.expand("~/.obsidian"),
+        --   comment = "Default Obsidian workspace",
+        -- })
       end
 
       return {
