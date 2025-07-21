@@ -3,7 +3,7 @@ local servers_to_ensure = {
   "lua_ls", "bashls", "clangd", "ts_ls", "jdtls", "jsonls",
   "pyright", "html", "dockerls", "rust_analyzer", "powershell_es",
   -- "phpactor"
-  "intelephense"
+  "intelephense", "kotlin_language_server"
 }
 
 require("mason").setup()
