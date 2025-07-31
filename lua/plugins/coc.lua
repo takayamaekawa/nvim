@@ -13,24 +13,22 @@ return {
       'coc-snippets'
     }
     
-    -- Tabキーでの補完設定（完全にTAB挿入を無効化）
-    vim.keymap.set('i', '<Tab>', function()
+    -- 補完操作キーマップ（TABの代わりにCtrl+j/kを使用）
+    vim.keymap.set('i', '<C-j>', function()
       if vim.fn['coc#pum#visible']() == 1 then
         return vim.fn['coc#pum#next'](1)
       else
-        -- 補完が表示されていない時は空文字を返す（何もしない）
-        return ''
+        return vim.fn['coc#refresh']()
       end
-    end, {expr = true, silent = true, replace_keycodes = false})
+    end, {expr = true, silent = true})
     
-    vim.keymap.set('i', '<S-Tab>', function()
+    vim.keymap.set('i', '<C-k>', function()
       if vim.fn['coc#pum#visible']() == 1 then
         return vim.fn['coc#pum#prev'](1)
       else
-        -- 補完が表示されていない時は何もしない
-        return ''
+        return vim.fn['coc#refresh']()
       end
-    end, {expr = true, silent = true, buffer = false})
+    end, {expr = true, silent = true})
     
     -- Enterキーで補完確定
     vim.keymap.set('i', '<CR>', function()
@@ -61,7 +59,7 @@ return {
     vim.api.nvim_set_keymap('x', '<leader>f', '<Plug>(coc-format-selected)', {noremap = false})
     vim.api.nvim_set_keymap('n', '<leader>f', '<Plug>(coc-format)', {noremap = false})
     
-    -- タブ文字が必要な場合の代替キーマップ
-    vim.keymap.set('i', '<C-v><Tab>', '\t', {silent = true, desc = 'Insert literal tab character'})
+    -- 補完トリガー強化
+    vim.keymap.set('i', '<C-Space>', 'coc#refresh()', {expr = true, silent = true})
   end
 }

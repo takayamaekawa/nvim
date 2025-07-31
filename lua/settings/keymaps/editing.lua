@@ -18,9 +18,9 @@ map('v', '<Tab>', '>gv', opts)
 map('v', '<S-Tab>', '<gv', opts)
 map('n', '<Tab>', '>>', opts)
 map('n', '<S-Tab>', '<<', opts)
--- インサートモードのTABは coc.nvim が制御するためコメントアウト
--- map('i', '<Tab>', '<C-t>', opts)
--- map('i', '<S-Tab>', '<C-d>', opts)
+-- インサートモードのTABを元のインデント機能に戻す
+map('i', '<Tab>', '<C-t>', opts)
+map('i', '<S-Tab>', '<C-d>', opts)
 
 -- search
 -- delete highlight
