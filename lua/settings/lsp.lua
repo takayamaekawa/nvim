@@ -1,10 +1,18 @@
+-- Java開発方法の切り替えフラグ (true: coc-java, false: nvim-java + jdtls)
+local USE_COC_JAVA = true
+
 -- if you fail to install jdtls, try to do :MasonInstall lombok-nightly
 local servers_to_ensure = {
-  "lua_ls", "bashls", "clangd", "ts_ls", "jdtls", "jsonls",
+  "lua_ls", "bashls", "clangd", "ts_ls", "jsonls",
   "pyright", "html", "dockerls", "rust_analyzer", "powershell_es",
   -- "phpactor"
   "intelephense", "kotlin_language_server"
 }
+
+-- coc-javaを使わない場合のみjdtlsを追加
+if not USE_COC_JAVA then
+  table.insert(servers_to_ensure, "jdtls")
+end
 
 require("mason").setup()
 
@@ -19,7 +27,11 @@ require("mason-conform").setup({
   }
 })
 
-require("java").setup()
+-- coc-javaを使わない場合のみjava setupを実行
+if not USE_COC_JAVA then
+  require("java").setup()
+end
+
 require("neodev").setup()
 
 -- you have to set [server_name].lua at lsp/ or after/lsp
