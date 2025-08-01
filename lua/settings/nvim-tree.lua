@@ -13,7 +13,7 @@ require("nvim-tree").setup({
   },
   view = {
     adaptive_size = false, -- ウィンドウサイズに応じて幅を調整しない
-    width = math.floor(vim.fn.winwidth(0) * 0.15),
+    width = math.floor(vim.fn.winwidth(0) * 0.20),
     side = "left",
     float = {
       enable = false,
