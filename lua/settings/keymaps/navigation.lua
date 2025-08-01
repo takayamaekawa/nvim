@@ -15,16 +15,23 @@ map('n', '<C-L>', '<Cmd>BufferMoveNext<CR>', opts)
 -- close
 map('n', '<leader>ww', '<Cmd>BufferClose<CR>', opts)
 map('n', '<leader>wc', '<Cmd>close<CR>', opts)
-fmap('n', '<C-\\><C-_>', function() vim.cmd("tabnext") end, opts)
-fmap('t', '<C-\\><C-_>', function() vim.cmd("tabnext") end, opts)
-fmap('n', '<C-\\><C-\\>', function() vim.cmd("tabprevious") end, opts)
-fmap('t', '<C-\\><C-\\>', function() vim.cmd("tabprevious") end, opts)
-fmap('n', '<C-\\><C-w>', function() vim.cmd("tabclose") end, opts)
-fmap('t', '<C-\\><C-w>', function() vim.cmd("tabclose") end, opts)
+
+local is_mac = vim.loop.os_uname().sysname == "Darwin"
+local tabnext_key = is_mac and '<C-]>' or '<C-\\><C-_>'
+local tabprev_key = is_mac and '<C-[>' or '<C-\\><C-\\>'
+local tabclose_key = is_mac and '<C-@>' or '<C-\\><C-w>'
+
+fmap('n', tabnext_key, function() vim.cmd("tabnext") end, opts)
+fmap('t', tabnext_key, function() vim.cmd("tabnext") end, opts)
+fmap('n', tabprev_key, function() vim.cmd("tabprevious") end, opts)
+fmap('t', tabprev_key, function() vim.cmd("tabprevious") end, opts)
+fmap('n', tabclose_key, function() vim.cmd("tabclose") end, opts)
+fmap('t', tabclose_key, function() vim.cmd("tabclose") end, opts)
 fmap('t', '<C-\\><C-h>', '<C-\\><C-n><C-w>h', opts)
 fmap('t', '<C-\\><C-j>', '<C-\\><C-n><C-w>j', opts)
 fmap('t', '<C-\\><C-k>', '<C-\\><C-n><C-w>k', opts)
 fmap('t', '<C-\\><C-l>', '<C-\\><C-n><C-w>l', opts)
+
 
 -- window
 -- close
