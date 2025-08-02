@@ -6,7 +6,7 @@ return {
     local term_size = math.floor(vim.o.columns / 2)
 
     return {
-      cmd = { "bash", "-c", "search " .. search_query },
+      cmd = { "zsh", "-c", "search " .. search_query },
       components = { "default" },
       -- see https://github.com/stevearc/overseer.nvim/blob/master/doc/strategies.md#terminal
       strategy = {

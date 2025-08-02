@@ -11,7 +11,7 @@ return {
     local log_file = log_dir .. "/" .. os.date("%H-%M-%S") .. ".log"
     local command = string.format(
       'echo "Q: %s" | tee %q; gemini -p %q | tee -a %q; ' ..
-      "exec bash -c 'while read -p \"gemini> \" query; do " ..
+      "exec zsh -c 'while read -p \"gemini> \" query; do " ..
       "if [[ -z \\\"$query\\\" ]]; then break; fi; " ..
       "echo \"\" | tee -a %q; echo \"Q: $query\" | tee -a %q; " ..
       "gemini -p \"$query\" | tee -a %q; " ..
@@ -22,7 +22,7 @@ return {
     )
 
     return {
-      cmd = { "bash", "-c", command },
+      cmd = { "zsh", "-c", command },
       components = {
         "on_exit_set_status",
       },
