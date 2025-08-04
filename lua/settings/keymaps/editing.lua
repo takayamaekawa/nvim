@@ -58,3 +58,19 @@ fmap('n', '<leader>du', function()
   vim.cmd('edit!')
   print('dos2unix executed on: ' .. filename)
 end, { desc = 'Run dos2unix on current file' })
+
+-- prompt create
+fmap('n', '<leader>id', function()
+  local lines = {
+    '```',
+    'id:  ',
+    '```',
+  }
+
+  local current_line = vim.fn.line('.')
+  vim.api.nvim_buf_set_lines(0, current_line, current_line, false, lines)
+
+  -- カーソルを 'id: ' の後ろに移動
+  vim.api.nvim_win_set_cursor(0, { current_line + 2, 5 })
+  vim.cmd('startinsert')
+end, { desc = 'Insert prompt template' })
