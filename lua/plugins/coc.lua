@@ -1,3 +1,11 @@
+-- COC全体の切り替えフラグ (true: COC使用, false: LSP直接使用)
+local USE_COC = false
+
+-- COCを無効化する場合は空テーブルを返す
+if not USE_COC then
+  return {}
+end
+
 return {
   'neoclide/coc.nvim',
   branch = 'release',
