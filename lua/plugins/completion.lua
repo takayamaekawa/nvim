@@ -8,15 +8,18 @@ return {
     -- { "hrsh7th/cmp-buffer" },
     { "hrsh7th/cmp-path" },
     { "hrsh7th/cmp-cmdline" },
+    { "rcarriga/cmp-dap" },
+    { "jcha0713/cmp-tw2css" },
+    { "roobert/tailwindcss-colorizer-cmp.nvim" },
   },
   opts = function()
     local cmp = require("cmp")
     local conf = {
       sources = cmp.config.sources({
         { name = "nvim_lsp" },
+        { name = "path" },
         -- { name = "vsnip" },
         -- { name = "buffer" },
-        -- { name = "path" },
         -- { name = "cmdline" },
       }),
       -- snippet = {
@@ -26,9 +29,8 @@ return {
       --   end,
       -- },
       mapping = cmp.mapping.preset.insert({
-        -- TABマッピングをcoc.nvimに譲るためコメントアウト
-        -- ["<Tab>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
-        -- ["<S-Tab>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
+        ["<Tab>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
+        ["<S-Tab>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
         ["<C-n>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
         ["<C-p>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
         ["<C-Space>"] = cmp.mapping.complete(),
