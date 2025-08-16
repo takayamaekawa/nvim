@@ -109,6 +109,10 @@ local function on_language_status(_, result)
   command 'echohl None'
 end
 
+local function get_java_debug_jar()
+  return env.HOME .. '/.local/share/nvim/mason/share/java-debug-adapter/com.microsoft.java.debug.plugin.jar'
+end
+
 return {
   cmd = {
     'jdtls',
@@ -134,6 +138,9 @@ return {
     workspace = get_jdtls_workspace_dir(),
     jvm_args = {},
     os_config = nil,
+    bundles = {
+      get_java_debug_jar(),
+    },
   },
   handlers = {
     -- Due to an invalid protocol implementation in the jdtls we have to conform these to be spec compliant.
