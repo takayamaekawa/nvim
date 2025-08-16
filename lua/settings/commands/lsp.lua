@@ -29,6 +29,7 @@ local function format_all_java_files()
     vim.cmd("edit " .. vim.fn.fnameescape(file))
     vim.lsp.buf.format({ timeout_ms = 5000 })
     vim.cmd("write")
+    vim.cmd("bdelete")
     print("Formatted: " .. file)
   end
 
