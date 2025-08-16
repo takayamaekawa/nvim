@@ -1,5 +1,5 @@
 -- Java開発方法の切り替えフラグ (true: coc-java, false: nvim-java + jdtls)
-local USE_COC_JAVA = true
+local USE_COC_JAVA = false
 
 -- if you fail to install jdtls, try to do :MasonInstall lombok-nightly
 local servers_to_ensure = {
