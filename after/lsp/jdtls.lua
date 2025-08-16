@@ -142,6 +142,22 @@ return {
       get_java_debug_jar(),
     },
   },
+  settings = {
+    java = {
+      imports = {
+        gradle = {
+          wrapper = {
+            checksums = {
+              {
+                sha256 = "7d3a4ac4de1c32b59bc6a4eb8ecb8e612ccd0cf1ae1e99f66902da64df296172",
+                allowed = true
+              }
+            }
+          }
+        }
+      }
+    }
+  },
   handlers = {
     -- Due to an invalid protocol implementation in the jdtls we have to conform these to be spec compliant.
     -- https://github.com/eclipse/eclipse.jdt.ls/issues/376
