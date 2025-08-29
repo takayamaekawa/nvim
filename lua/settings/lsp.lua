@@ -6,7 +6,7 @@ local servers_to_ensure = {
   "lua_ls", "bashls", "clangd", "ts_ls", "jsonls",
   "pyright", "html", "dockerls", "rust_analyzer", "powershell_es",
   -- "phpactor"
-  "intelephense", "kotlin_language_server"
+  "intelephense", "kotlin_language_server", "prismals"
 }
 
 -- coc-javaを使わない場合のみjdtlsを追加
