@@ -14,6 +14,7 @@ require("conform").setup({
     bash = { "shfmt" },
     yml = { "prettier", "remove_blank_lines" },
     yaml = { "prettier", "remove_blank_lines" },
+    xml = { "xmlformatter" }
   },
   formatters = {
     remove_blank_lines = {
