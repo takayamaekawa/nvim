@@ -83,7 +83,7 @@ end
 local function on_textdocument_codeaction(err, actions, ctx)
   for _, action in ipairs(actions) do
     -- TODO: (steelsojka) Handle more than one edit?
-    if action.command == 'java.apply.workspaceEdit' then -- 'action' is Command in java format
+    if action.command == 'java.apply.workspaceEdit' then                                                 -- 'action' is Command in java format
       action.edit = fix_zero_version(action.edit or action.arguments[1])
     elseif type(action.command) == 'table' and action.command.command == 'java.apply.workspaceEdit' then -- 'action' is CodeAction in java format
       action.edit = fix_zero_version(action.edit or action.command.arguments[1])
@@ -129,9 +129,9 @@ return {
     'build.gradle',
     'build.gradle.kts',
     -- Single-module projects
-    'build.xml', -- Ant
-    'pom.xml', -- Maven
-    'settings.gradle', -- Gradle
+    'build.xml',           -- Ant
+    'pom.xml',             -- Maven
+    'settings.gradle',     -- Gradle
     'settings.gradle.kts', -- Gradle
   },
   init_options = {
@@ -151,6 +151,14 @@ return {
             checksums = {
               {
                 sha256 = "7d3a4ac4de1c32b59bc6a4eb8ecb8e612ccd0cf1ae1e99f66902da64df296172",
+                allowed = true
+              },
+              {
+                sha256 = "498495120a03b9a6ab5d155f5de3c8f0d986a449153702fb80fc80e134484f17",
+                allowed = true
+              },
+              {
+                sha256 = "d3b261c2820e9e3d8d639ed084900f11f4a86050a8f83342ade7b6bc9b0d2bdd",
                 allowed = true
               }
             }
