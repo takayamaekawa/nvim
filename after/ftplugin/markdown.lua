@@ -83,6 +83,7 @@ local function indent_and_renumber()
       
       -- Calculate the correct number for the new indent level
       -- Look backward for the last item with the same new indent level
+      -- Skip items that are between old and new indent levels
       local new_num = 1
       for i = row - 1, 1, -1 do
         local prev_line = vim.api.nvim_buf_get_lines(0, i - 1, i, false)[1]
@@ -93,10 +94,14 @@ local function indent_and_renumber()
             -- Found an item at the same new indent level
             new_num = tonumber(prev_num) + 1
             break
-          elseif prev_indent_len < new_indent_len then
-            -- Found a parent level, start from 1
+          elseif prev_indent_len < new_indent_len and prev_indent_len >= old_indent_len then
+            -- Found a parent level or same old level, start from 1
+            break
+          elseif prev_indent_len < old_indent_len then
+            -- Found a shallower level than old indent, start from 1
             break
           end
+          -- If prev_indent_len > new_indent_len, skip (deeper items)
         elseif not prev_line:match("^%s*$") then
           -- Non-list line, stop searching
           break
@@ -112,8 +117,30 @@ local function indent_and_renumber()
       local col = vim.api.nvim_win_get_cursor(0)[2]
       vim.api.nvim_win_set_cursor(0, {row, col + 2})
       
-      -- Renumber following items at the new indent level
-      renumber_list_block(row)
+      -- Renumber following items at the new indent level (only items after current line)
+      local lines = vim.api.nvim_buf_get_lines(0, 0, -1, false)
+      local counter = new_num + 1
+      for i = row + 1, #lines do
+        local next_line = lines[i]
+        local next_indent, next_num = next_line:match("^(%s*)(%d+)%.")
+        if next_indent and next_num then
+          local next_indent_len = #next_indent
+          if next_indent_len == new_indent_len then
+            -- Renumber this line
+            local rest_text = next_line:match("^%s*%d+%.(.*)$")
+            local updated_line = string.rep(" ", new_indent_len) .. counter .. "." .. rest_text
+            vim.api.nvim_buf_set_lines(0, i - 1, i, false, {updated_line})
+            counter = counter + 1
+          elseif next_indent_len < new_indent_len then
+            -- Reached a shallower level, stop
+            break
+          end
+          -- If deeper, skip (child items)
+        elseif not next_line:match("^%s*$") then
+          -- Non-list line, stop
+          break
+        end
+      end
     end
   end)
 end
