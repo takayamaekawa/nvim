@@ -207,9 +207,9 @@ local function dedent_and_renumber()
       local new_line = string.rep(" ", new_indent_len) .. new_num .. "." .. rest
       vim.api.nvim_set_current_line(new_line)
       
-      -- Move cursor to maintain relative position
-      local col = vim.api.nvim_win_get_cursor(0)[2]
-      vim.api.nvim_win_set_cursor(0, {row, math.max(0, col - 2)})
+      -- Move cursor to after "number. " (indent + number + period + space)
+      local new_col = new_indent_len + #tostring(new_num) + 2  -- +2 for ". "
+      vim.api.nvim_win_set_cursor(0, {row, new_col})
       
       -- Renumber following items at the new indent level (only items after current line)
       local lines = vim.api.nvim_buf_get_lines(0, 0, -1, false)
