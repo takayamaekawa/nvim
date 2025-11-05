@@ -132,26 +132,48 @@ local function dedent_and_renumber()
       local new_indent_len = old_indent_len - 2
       
       -- Calculate the correct number for the new indent level
-      -- Look backward for the last item with the same new indent level
+      -- We need to find where this item belongs in the parent level
+      -- Strategy: Look backward and skip all items that are deeper or equal to old indent
       local new_num = 1
+      local found_parent = false
+      
+      -- Debug output
+      -- vim.notify(string.format("SHIFT-TAB Debug: row=%d, old_indent=%d, new_indent=%d", 
+      --                          row, old_indent_len, new_indent_len), vim.log.levels.INFO)
+      
       for i = row - 1, 1, -1 do
         local prev_line = vim.api.nvim_buf_get_lines(0, i - 1, i, false)[1]
         local prev_indent, prev_num = prev_line:match("^(%s*)(%d+)%.")
         if prev_indent and prev_num then
           local prev_indent_len = #prev_indent
-          if prev_indent_len == new_indent_len then
-            -- Found an item at the same new indent level
+          -- Debug output
+          -- vim.notify(string.format("  Line %d: indent=%d, num=%s (checking...)", 
+          --                          i, prev_indent_len, prev_num), vim.log.levels.INFO)
+          
+          -- Skip items that are deeper or at the same level as the old indent
+          -- (these are siblings or children at the old level)
+          if prev_indent_len >= old_indent_len then
+            -- Skip this line, continue searching
+            -- vim.notify(string.format("    -> SKIP (indent >= %d)", old_indent_len), vim.log.levels.INFO)
+          elseif prev_indent_len == new_indent_len then
+            -- Found an item at the target (parent) level
             new_num = tonumber(prev_num) + 1
+            found_parent = true
+            -- vim.notify(string.format("    -> FOUND! new_num = %d", new_num), vim.log.levels.INFO)
             break
           elseif prev_indent_len < new_indent_len then
-            -- Found a shallower level, start from 1
+            -- Found a shallower level than target, start from 1
+            -- vim.notify(string.format("    -> SHALLOWER, new_num = 1"), vim.log.levels.INFO)
             break
           end
         elseif not prev_line:match("^%s*$") then
           -- Non-list line, stop searching
+          -- vim.notify("    -> Non-list line, stopping", vim.log.levels.INFO)
           break
         end
       end
+      
+      -- vim.notify(string.format("Final new_num = %d", new_num), vim.log.levels.INFO)
       
       -- Remove indent and update number
       local rest = line:match("^%s*%d+%.(.*)$")
@@ -162,8 +184,30 @@ local function dedent_and_renumber()
       local col = vim.api.nvim_win_get_cursor(0)[2]
       vim.api.nvim_win_set_cursor(0, {row, math.max(0, col - 2)})
       
-      -- Renumber following items at the new indent level
-      renumber_list_block(row)
+      -- Renumber following items at the new indent level (only items after current line)
+      local lines = vim.api.nvim_buf_get_lines(0, 0, -1, false)
+      local counter = new_num + 1
+      for i = row + 1, #lines do
+        local next_line = lines[i]
+        local next_indent, next_num = next_line:match("^(%s*)(%d+)%.")
+        if next_indent and next_num then
+          local next_indent_len = #next_indent
+          if next_indent_len == new_indent_len then
+            -- Renumber this line
+            local rest_text = next_line:match("^%s*%d+%.(.*)$")
+            local updated_line = string.rep(" ", new_indent_len) .. counter .. "." .. rest_text
+            vim.api.nvim_buf_set_lines(0, i - 1, i, false, {updated_line})
+            counter = counter + 1
+          elseif next_indent_len < new_indent_len then
+            -- Reached a shallower level, stop
+            break
+          end
+          -- If deeper, skip (child items)
+        elseif not next_line:match("^%s*$") then
+          -- Non-list line, stop
+          break
+        end
+      end
     end
   end)
 end
