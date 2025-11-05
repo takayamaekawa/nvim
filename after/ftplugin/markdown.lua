@@ -60,13 +60,11 @@ local function renumber_list_block(start_line)
         break
       end
       -- If indent > current_indent, skip (child items)
-    elseif line:match("^%s*$") then
-      -- Empty line continues the block
-      continue
-    else
-      -- Non-list line, stop renumbering
+    elseif not line:match("^%s*$") then
+      -- Non-empty, non-list line, stop renumbering
       break
     end
+    -- Empty line continues the block (do nothing)
   end
 end
 
@@ -142,14 +140,47 @@ local function dedent_and_renumber()
 end
 
 -- Map TAB and SHIFT-TAB in Insert mode
-vim.keymap.set("i", "<Tab>", indent_and_renumber, { buffer = true, silent = true, desc = "Indent and renumber list" })
-vim.keymap.set("i", "<S-Tab>", dedent_and_renumber, { buffer = true, silent = true, desc = "Dedent and renumber list" })
+vim.keymap.set("i", "<Tab>", function()
+  local line = vim.api.nvim_get_current_line()
+  local indent, num = line:match("^(%s*)(%d+)%.")
+  if indent and num then
+    indent_and_renumber()
+  else
+    -- Normal tab behavior - insert actual tab or spaces
+    return "<Tab>"
+  end
+end, { buffer = true, silent = true, expr = true, desc = "Indent and renumber list" })
+
+vim.keymap.set("i", "<S-Tab>", function()
+  local line = vim.api.nvim_get_current_line()
+  local indent, num = line:match("^(%s*)(%d+)%.")
+  if indent and num then
+    dedent_and_renumber()
+  else
+    -- Normal shift-tab behavior
+    return "<C-d>"
+  end
+end, { buffer = true, silent = true, expr = true, desc = "Dedent and renumber list" })
 
 -- Also map in Normal mode for convenience
 vim.keymap.set("n", "<Tab>", function()
-  indent_and_renumber()
+  local line = vim.api.nvim_get_current_line()
+  local indent, num = line:match("^(%s*)(%d+)%.")
+  if indent and num then
+    indent_and_renumber()
+  else
+    -- Normal behavior: indent the line
+    vim.cmd("normal! >>")
+  end
 end, { buffer = true, silent = true, desc = "Indent and renumber list" })
 
 vim.keymap.set("n", "<S-Tab>", function()
-  dedent_and_renumber()
+  local line = vim.api.nvim_get_current_line()
+  local indent, num = line:match("^(%s*)(%d+)%.")
+  if indent and num then
+    dedent_and_renumber()
+  else
+    -- Normal behavior: dedent the line
+    vim.cmd("normal! <<")
+  end
 end, { buffer = true, silent = true, desc = "Dedent and renumber list" })
