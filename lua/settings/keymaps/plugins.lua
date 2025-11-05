@@ -84,6 +84,16 @@ fmap('n', '<C-c>', '<cmd>CopilotChatToggle<cr>', { desc = 'Toggle CopilotChat' }
 fmap('v', '<C-c>', '<cmd>CopilotChatToggle<cr>', { desc = 'Toggle CopilotChat' })
 fmap('n', '<leader>cp', '<cmd>CopilotChatPrompts<cr>', { desc = 'Prompts CopilotChat' })
 fmap('n', '<leader>cm', '<cmd>CopilotChatCommit<cr>', { desc = 'Commit CopilotChat' })
+-- Copilot自動補完のトグル
+fmap('n', '<leader>ct', function()
+  if vim.b.copilot_enabled == false then
+    vim.b.copilot_enabled = true
+    vim.notify("Copilot自動補完: 有効", vim.log.levels.INFO)
+  else
+    vim.b.copilot_enabled = false
+    vim.notify("Copilot自動補完: 無効", vim.log.levels.INFO)
+  end
+end, { desc = 'Toggle Copilot Auto-completion' })
 
 -- toggleterm
 fmap("n", "<c-t>", toggleterm_settings.toggle_float_terminal)
