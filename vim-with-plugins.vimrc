@@ -342,7 +342,7 @@ let g:airline#extensions#ale#enabled = 1
 
 " Basic editing (from original vimrc)
 " Quick escape
-imap jj <Esc>
+inoremap jj <Esc>
 
 " Quick quit all
 nnoremap <Leader>qq :qall<CR>
