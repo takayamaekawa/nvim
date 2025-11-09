@@ -350,7 +350,7 @@ nnoremap <Leader>qq :qall<CR>
 nnoremap <S-a> ggVG
 nnoremap <S-f> gg=G
 nnoremap <S-w> :w<CR>
-nnoremap <leader>o :put =''<CR>
+nnoremap <S-o> :put =''<CR>
 vnoremap <Tab> >gv
 vnoremap <S-Tab> <gv
 nnoremap <Tab> >>
