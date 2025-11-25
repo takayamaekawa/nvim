@@ -35,8 +35,12 @@ return {
     -- 出力ウィンドウのハイライト設定
     vim.g.molten_output_show_more = true
     
-    -- ボーダーの設定（8要素が必要: top-left, top, top-right, right, bottom-right, bottom, bottom-left, left）
-    vim.g.molten_output_win_border = { "", "─", "", "", "", "─", "", "" }
+    -- ボーダーの設定（各要素は [文字, ハイライトグループ] のタプル形式）
+    -- top-left, top, top-right, right, bottom-right, bottom, bottom-left, left
+    vim.g.molten_output_win_border = {
+      {"", ""}, {"─", ""}, {"", ""}, {"", ""},
+      {"", ""}, {"─", ""}, {"", ""}, {"", ""}
+    }
     
     -- カーネルの自動初期化
     vim.g.molten_auto_init_behavior = "init"
