@@ -47,6 +47,36 @@ return {
   end,
   -- keysは削除してlazy loadしない
   config = function()
+    -- セルの出力をクリップボードにコピーする関数
+    local function copy_cell_output()
+      -- MoltenEnterOutputで出力ウィンドウに入る
+      local ok = pcall(vim.cmd, "MoltenEnterOutput")
+      if not ok then
+        vim.notify("No output window found", vim.log.levels.WARN)
+        return
+      end
+      
+      -- 少し待ってからバッファの内容を取得
+      vim.defer_fn(function()
+        local bufnr = vim.api.nvim_get_current_buf()
+        local lines = vim.api.nvim_buf_get_lines(bufnr, 0, -1, false)
+        local text = table.concat(lines, "\n")
+        
+        if text and text ~= "" then
+          -- クリップボードにコピー
+          vim.fn.setreg('+', text)
+          vim.fn.setreg('"', text)
+          
+          vim.notify("Output copied to clipboard (" .. #lines .. " lines)", vim.log.levels.INFO)
+        else
+          vim.notify("Output is empty", vim.log.levels.WARN)
+        end
+        
+        -- 元のウィンドウに戻る
+        vim.cmd("quit")
+      end, 50)
+    end
+    
     -- キーマッピング設定
     vim.keymap.set("n", "<leader>ro", ":MoltenEvaluateOperator<CR>", { desc = "Molten Evaluate Operator", silent = true })
     vim.keymap.set("v", "<leader>rv", ":<C-u>MoltenEvaluateVisual<CR>gv", { desc = "Molten Evaluate Visual", silent = true })
@@ -56,5 +86,6 @@ return {
     vim.keymap.set("n", "<leader>ri", ":MoltenInit<CR>", { desc = "Molten Initialize Kernel", silent = true })
     vim.keymap.set("n", "<leader>rh", ":MoltenHideOutput<CR>", { desc = "Molten Hide Output", silent = true })
     vim.keymap.set("n", "<leader>rs", ":MoltenShowOutput<CR>", { desc = "Molten Show Output", silent = true })
+    vim.keymap.set("n", "<leader>ry", copy_cell_output, { desc = "Molten Copy Output to Clipboard", silent = true })
   end,
 }
