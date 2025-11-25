@@ -53,32 +53,65 @@ return {
   config = function()
     -- セルの出力をクリップボードにコピーする関数
     local function copy_cell_output()
-      -- MoltenEnterOutputで出力ウィンドウに入る
-      local ok = pcall(vim.cmd, "MoltenEnterOutput")
-      if not ok then
-        vim.notify("No output window found", vim.log.levels.WARN)
+      -- 出力ウィンドウを探す
+      local output_bufnr = nil
+      local output_winid = nil
+      
+      -- 全てのウィンドウをチェック
+      for _, winid in ipairs(vim.api.nvim_list_wins()) do
+        local bufnr = vim.api.nvim_win_get_buf(winid)
+        local bufname = vim.api.nvim_buf_get_name(bufnr)
+        
+        -- molten出力バッファを探す（バッファ名またはfiletypeで判定）
+        local buftype = vim.api.nvim_buf_get_option(bufnr, 'buftype')
+        if buftype == 'nofile' and bufname:match('molten') then
+          output_bufnr = bufnr
+          output_winid = winid
+          break
+        end
+      end
+      
+      -- 出力バッファが見つからない場合、別の方法を試す
+      if not output_bufnr then
+        -- フローティングウィンドウを探す
+        for _, winid in ipairs(vim.api.nvim_list_wins()) do
+          local win_config = vim.api.nvim_win_get_config(winid)
+          if win_config.relative ~= '' then  -- フローティングウィンドウ
+            local bufnr = vim.api.nvim_win_get_buf(winid)
+            local lines = vim.api.nvim_buf_get_lines(bufnr, 0, 5, false)
+            -- 最初の数行に出力っぽい内容があれば採用
+            if #lines > 0 and lines[1] ~= '' then
+              output_bufnr = bufnr
+              output_winid = winid
+              break
+            end
+          end
+        end
+      end
+      
+      if not output_bufnr then
+        vim.notify("No output found. Try running a cell first.", vim.log.levels.WARN)
         return
       end
       
-      -- 少し待ってからバッファの内容を取得
-      vim.defer_fn(function()
-        local bufnr = vim.api.nvim_get_current_buf()
-        local lines = vim.api.nvim_buf_get_lines(bufnr, 0, -1, false)
-        local text = table.concat(lines, "\n")
+      -- バッファの内容を取得
+      local lines = vim.api.nvim_buf_get_lines(output_bufnr, 0, -1, false)
+      local text = table.concat(lines, "\n")
+      
+      if text and text ~= "" then
+        -- クリップボードにコピー
+        vim.fn.setreg('+', text)
+        vim.fn.setreg('"', text)
         
-        if text and text ~= "" then
-          -- クリップボードにコピー
-          vim.fn.setreg('+', text)
-          vim.fn.setreg('"', text)
-          
-          vim.notify("Output copied to clipboard (" .. #lines .. " lines)", vim.log.levels.INFO)
-        else
-          vim.notify("Output is empty", vim.log.levels.WARN)
+        -- システムクリップボードにもコピーを試みる
+        if vim.fn.has('clipboard') == 1 then
+          vim.fn.setreg('*', text)
         end
         
-        -- 元のウィンドウに戻る
-        vim.cmd("quit")
-      end, 50)
+        vim.notify("Output copied to clipboard (" .. #lines .. " lines)", vim.log.levels.INFO)
+      else
+        vim.notify("Output is empty", vim.log.levels.WARN)
+      end
     end
     
     -- キーマッピング設定
@@ -91,5 +124,30 @@ return {
     vim.keymap.set("n", "<leader>rh", ":MoltenHideOutput<CR>", { desc = "Molten Hide Output", silent = true })
     vim.keymap.set("n", "<leader>rs", ":MoltenShowOutput<CR>", { desc = "Molten Show Output", silent = true })
     vim.keymap.set("n", "<leader>ry", copy_cell_output, { desc = "Molten Copy Output to Clipboard", silent = true })
+    
+    -- デバッグ用: 出力バッファ情報を表示
+    vim.keymap.set("n", "<leader>rY", function()
+      local info = {}
+      table.insert(info, "=== Window Information ===")
+      
+      for _, winid in ipairs(vim.api.nvim_list_wins()) do
+        local bufnr = vim.api.nvim_win_get_buf(winid)
+        local bufname = vim.api.nvim_buf_get_name(bufnr)
+        local buftype = vim.api.nvim_buf_get_option(bufnr, 'buftype')
+        local win_config = vim.api.nvim_win_get_config(winid)
+        local is_float = win_config.relative ~= ''
+        
+        table.insert(info, string.format("Win %d: buf=%d, type=%s, float=%s", 
+          winid, bufnr, buftype, is_float))
+        table.insert(info, string.format("  name: %s", bufname))
+        
+        if is_float then
+          local lines = vim.api.nvim_buf_get_lines(bufnr, 0, 3, false)
+          table.insert(info, "  first 3 lines: " .. vim.inspect(lines))
+        end
+      end
+      
+      vim.notify(table.concat(info, "\n"), vim.log.levels.INFO)
+    end, { desc = "Molten Debug Output Info", silent = true })
   end,
 }
