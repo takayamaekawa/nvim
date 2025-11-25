@@ -3,6 +3,7 @@ local fmap = vim.keymap.set
 local opts = { noremap = true, silent = true }
 
 local workspace_picker = require('impl.workspacePicker')
+local python_env_picker = require('impl.pythonEnvPicker')
 
 -- buffer
 -- move to the previous/next one
@@ -65,3 +66,6 @@ fmap('n', '<leader>og', '<Cmd>ObsidianBridgeOpenGraph<CR>', opts) -- グラフ�
 
 -- workspace
 fmap('n', '<leader>pp', function() workspace_picker.show_workspaces() end, opts) -- ワークスペースピッカー
+
+-- python environment
+fmap('n', '<leader>pe', function() python_env_picker.show_python_envs() end, opts) -- Python環境ピッカー

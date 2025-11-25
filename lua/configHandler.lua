@@ -16,8 +16,15 @@
 ---@class SelfJavaConfig
 ---@field classpaths string[]
 
+---@class PythonEnvironment
+---@field name string
+---@field path string
+---@field comment string
+
 ---@class SelfTable
 ---@field debug boolean
+---@field python_environments PythonEnvironment[]
+---@field active_python_env string
 ---@field workspaces SelfWorkspace[]
 ---@field java SelfJavaConfig
 

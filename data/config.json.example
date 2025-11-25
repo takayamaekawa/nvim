@@ -15,6 +15,19 @@
   },
   "self": {
     "debug": false,
+    "python_environments": [
+      {
+        "name": "pixel",
+        "path": "/Users/tk/anaconda3/envs/pixel/bin/python",
+        "comment": "Pixeltable environment"
+      },
+      {
+        "name": "default",
+        "path": "/Users/tk/anaconda3/bin/python",
+        "comment": "Default anaconda python"
+      }
+    ],
+    "active_python_env": "pixel",
     "workspaces": [
       {
         "name": "ExampleWorkspace1",
