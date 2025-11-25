@@ -10,16 +10,33 @@ return {
     { "<leader>rc", function() 
         require("notebook-navigator").run_cell()
         -- 少し待ってから保存（セル実行が完了するのを待つ）
+        -- LSPへの負荷を軽減するため、保存前にLSPを一時的に無効化
         vim.defer_fn(function()
+          -- LSP診断の更新を一時的に無効化
+          local old_update_in_insert = vim.diagnostic.config().update_in_insert
+          vim.diagnostic.config({ update_in_insert = false })
+          
           vim.cmd("silent! write")
-        end, 100)
+          
+          -- 保存後、少し待ってから診断を再開
+          vim.defer_fn(function()
+            vim.diagnostic.config({ update_in_insert = old_update_in_insert })
+          end, 500)
+        end, 300)  -- 100ms → 300msに変更
       end, desc = "Run Cell and Save" },
     -- セル内のコードを実行して次のセルに移動して自動保存
     { "<leader>rm", function() 
         require("notebook-navigator").run_and_move()
         vim.defer_fn(function()
+          local old_update_in_insert = vim.diagnostic.config().update_in_insert
+          vim.diagnostic.config({ update_in_insert = false })
+          
           vim.cmd("silent! write")
-        end, 100)
+          
+          vim.defer_fn(function()
+            vim.diagnostic.config({ update_in_insert = old_update_in_insert })
+          end, 500)
+        end, 300)
       end, desc = "Run Cell, Move and Save" },
     -- 上のセルに移動
     { "[c", function() require("notebook-navigator").move_cell('u') end, desc = "Move to Cell Above" },

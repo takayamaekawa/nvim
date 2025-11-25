@@ -82,4 +82,18 @@ fmap('n', '<leader>me', '<cmd>ModeError<CR>', {
   desc = '[M]ode [E]rror: Start diagnostic navigation',
 })
 
+-- LSP再起動
+fmap('n', '<leader>lr', '<cmd>RestartLsp<CR>', {
+  noremap = true,
+  silent = true,
+  desc = '[L]SP [R]estart: Restart all LSP servers',
+})
+
+-- Pyright再起動
+fmap('n', '<leader>lp', '<cmd>RestartPyright<CR>', {
+  noremap = true,
+  silent = true,
+  desc = '[L]SP [P]yright: Restart Pyright LSP server',
+})
+
 -- return M

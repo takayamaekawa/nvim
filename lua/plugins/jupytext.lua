@@ -41,5 +41,28 @@ return {
         vim.notify("Failed to sync: " .. result, vim.log.levels.ERROR)
       end
     end, {})
+    
+    -- ipynbファイルを開いた時にLSP設定を最適化
+    vim.api.nvim_create_autocmd({"BufRead", "BufNewFile"}, {
+      pattern = "*.ipynb",
+      callback = function()
+        -- pyrightクライアントを取得
+        vim.defer_fn(function()
+          local clients = vim.lsp.get_clients({ bufnr = 0, name = "pyright" })
+          for _, client in ipairs(clients) do
+            if client.config.settings then
+              -- notebookファイル用の診断モードを設定
+              client.config.settings.python = client.config.settings.python or {}
+              client.config.settings.python.analysis = client.config.settings.python.analysis or {}
+              client.config.settings.python.analysis.diagnosticMode = "openFilesOnly"
+              -- 設定を再送信
+              client.notify("workspace/didChangeConfiguration", {
+                settings = client.config.settings
+              })
+            end
+          end
+        end, 1000)  -- LSPが起動するまで少し待つ
+      end,
+    })
   end,
 }
