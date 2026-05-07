@@ -29,7 +29,11 @@ require("mason-conform").setup({
 
 -- coc-javaを使わない場合のみjava setupを実行
 if not USE_COC_JAVA then
-  require("java").setup()
+  require("java").setup({
+    jdk = {
+      auto_install = false,
+    },
+  })
 end
 
 require("neodev").setup()
