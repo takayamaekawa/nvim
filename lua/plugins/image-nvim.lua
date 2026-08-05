@@ -6,12 +6,10 @@ return {
   "3rd/image.nvim",
   lazy = false, -- 起動時にロード
   priority = 900, -- moltenより先にロード
-  dependencies = {
-    "leafo/magick", -- ImageMagick の Lua バインディング（luarocks でインストール済み）
-  },
   config = function()
     require("image").setup({
       backend = "kitty", -- kitty graphics protocol を使用
+      processor = "magick_cli", -- brew の magick コマンドを使用（luarocks 不要）
       integrations = {
         markdown = {
           enabled = true,

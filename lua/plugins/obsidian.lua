@@ -26,6 +26,7 @@ local bridge_settings = {
 return {
   {
     "oflisback/obsidian-bridge.nvim",
+    enabled = false, -- ローカルREST API連携は未使用のため無効化
     dependencies = { "nvim-telescope/telescope.nvim" },
     opts = bridge_settings,
     event = {
@@ -52,6 +53,7 @@ return {
   },
   {
     "epwalsh/obsidian.nvim",
+    enabled = false, -- ~/tk-notes が存在せず、REST API連携も未使用のため無効化
     version = "*",
     lazy = true,
     ft = "markdown",
